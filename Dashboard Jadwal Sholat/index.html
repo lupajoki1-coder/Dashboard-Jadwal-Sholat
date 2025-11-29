@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Prayer Time Elegant</title>
+    <title>Prayer Time Elegant Pro + Quotes</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -45,12 +45,11 @@
             font-family: 'Inter', sans-serif;
             background-color: #fdfbf7;
             color: #2d2a26;
-            overflow: hidden; /* Prevent body scroll, use container scroll */
+            overflow: hidden; 
         }
 
         /* BACKGROUND IMAGE */
         .bg-wallpaper {
-            /* Minimalist Bright Modern Architecture AI Style */
             background-image: url('https://images.unsplash.com/photo-1590076215667-875d4ef2d7ee?q=80&w=2000&auto=format&fit=crop'); 
             background-size: cover;
             background-position: center;
@@ -66,16 +65,15 @@
         }
 
         .glass-dock {
-            background: rgba(45, 42, 38, 0.95); /* Dark dock for contrast */
+            background: rgba(45, 42, 38, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
         }
 
-        /* TYPOGRAPHY UTILS */
+        /* UTILS */
         .font-serif-title { font-family: 'Playfair Display', serif; }
-
-        /* SCROLL HIDE */
+        .font-arab-quote { font-family: 'Amiri', serif; line-height: 2.2; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -90,8 +88,7 @@
             border-left: 4px solid #b49b56;
         }
         .prayer-active .icon-gold { color: #b49b56; }
-        .prayer-active .text-muted { color: rgba(255,255,255,0.7); }
-
+        
         /* COMPASS */
         .qibla-pointer { transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
         
@@ -107,24 +104,24 @@
 
     <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80 pointer-events-none"></div>
 
-    <main class="relative z-10 w-full h-full md:max-w-[480px] md:h-[90vh] md:rounded-[2.5rem] md:shadow-2xl md:border-[8px] md:border-white/50 bg-white/60 backdrop-blur-sm flex flex-col overflow-hidden animate-enter">
+    <main class="relative z-10 w-full h-full md:max-w-[480px] md:h-[95vh] md:rounded-[2.5rem] md:shadow-2xl md:border-[8px] md:border-white/50 bg-white/60 backdrop-blur-sm flex flex-col overflow-hidden animate-enter">
         
         <header class="pt-6 pb-2 px-6 flex justify-between items-end shrink-0">
             <div>
                 <p id="date-display" class="text-[10px] tracking-[0.25em] font-bold text-royal-gold uppercase mb-1">...</p>
-                <div class="flex items-center gap-1 group cursor-pointer" id="loc-trigger">
-                    <i data-lucide="map-pin" class="w-4 h-4 text-royal-dark"></i>
-                    <h1 id="location-name" class="font-serif-title text-xl font-bold text-royal-dark truncate max-w-[180px]">Mendeteksi...</h1>
-                    <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
+                <div class="relative">
+                    <div class="flex items-center gap-1 group cursor-pointer" id="loc-trigger">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-royal-dark"></i>
+                        <h1 id="location-name" class="font-serif-title text-xl font-bold text-royal-dark truncate max-w-[180px]">Mendeteksi...</h1>
+                        <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
+                    </div>
+                    <select id="location-select" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-20"></select>
                 </div>
             </div>
             <div id="clock-display" class="font-mono font-bold text-lg text-royal-dark/80 bg-white/50 px-3 py-1 rounded-full border border-white">
                 00:00
             </div>
         </header>
-
-        <select id="location-select" class="absolute top-6 left-6 w-48 opacity-0 z-20 h-8 cursor-pointer">
-            </select>
 
         <div class="px-6 py-4 shrink-0">
             <div class="glass-card rounded-[2rem] p-6 relative overflow-hidden group">
@@ -147,34 +144,41 @@
             </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 space-y-3" id="prayer-list">
+        <div class="flex-1 overflow-y-auto no-scrollbar px-6 pb-28 space-y-3" id="prayer-list">
             </div>
 
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px]">
-            <div class="glass-dock rounded-2xl p-2 flex justify-between items-center px-4 shadow-soft">
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-[420px]">
+            <div class="glass-dock rounded-2xl p-2 flex justify-between items-center px-2 shadow-soft">
                 
-                <button onclick="openModal('qiblat-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                <button onclick="openModal('qiblat-modal')" class="flex flex-col items-center gap-1 p-2 group flex-1">
                     <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
                         <i data-lucide="compass" class="w-5 h-5"></i>
                     </div>
                     <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Kiblat</span>
                 </button>
 
-                <button onclick="openModal('date-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                <button onclick="openModal('date-modal')" class="flex flex-col items-center gap-1 p-2 group flex-1">
                     <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
                         <i data-lucide="calendar-search" class="w-5 h-5"></i>
                     </div>
                     <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Cari</span>
                 </button>
 
-                <button onclick="openModal('weather-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                <button onclick="openModal('quote-modal')" class="flex flex-col items-center gap-1 p-2 group flex-1">
+                    <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
+                        <i data-lucide="book-heart" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Inspirasi</span>
+                </button>
+
+                <button onclick="openModal('weather-modal')" class="flex flex-col items-center gap-1 p-2 group flex-1">
                     <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
                         <i data-lucide="cloud-sun" class="w-5 h-5"></i>
                     </div>
                     <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Cuaca</span>
                 </button>
 
-                <button onclick="openModal('currency-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                <button onclick="openModal('currency-modal')" class="flex flex-col items-center gap-1 p-2 group flex-1">
                     <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
                         <i data-lucide="banknote" class="w-5 h-5"></i>
                     </div>
@@ -204,7 +208,7 @@
             </div>
             
             <div class="text-3xl font-mono font-bold text-royal-dark mb-1" id="qiblat-degree">--°</div>
-            <p class="text-xs text-gray-400">Derajat dari Utara</p>
+            <p class="text-xs text-gray-400">Derajat dari Utara (Kompas)</p>
         </div>
     </div>
 
@@ -224,8 +228,31 @@
         </div>
     </div>
 
+    <div id="quote-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
+        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-8 shadow-2xl relative flex flex-col items-center text-center">
+            <button onclick="closeModal('quote-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            
+            <div class="mb-6">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-royal-gold border border-royal-gold/30 px-3 py-1 rounded-full">Kalam Ilahi</span>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-center mb-6">
+                <i data-lucide="quote" class="w-6 h-6 text-gray-200 mx-auto mb-2 transform rotate-180"></i>
+                <p id="quote-arab" class="font-arab-quote text-2xl text-royal-gold mb-4 dir-rtl leading-loose px-2">...</p>
+                <p id="quote-arti" class="font-display italic text-gray-600 text-sm leading-relaxed mb-4">...</p>
+                <div class="w-10 h-[1px] bg-royal-gold/30 mx-auto mb-4"></div>
+                <p id="quote-ref" class="text-xs font-bold text-royal-dark uppercase tracking-wide">...</p>
+            </div>
+
+            <button onclick="renderQuote()" class="bg-royal-dark text-white text-xs font-bold py-3 px-6 rounded-full hover:bg-royal-gold transition-colors flex items-center gap-2">
+                <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                Ayat Lainnya
+            </button>
+        </div>
+    </div>
+
     <div id="weather-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
-        <div class="modal-content w-full max-w-xs bg-white rounded-[2rem] p-6 shadow-2xl relative text-center">
+        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-6 shadow-2xl relative text-center">
             <button onclick="closeModal('weather-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
             
             <div class="mb-4">
@@ -233,19 +260,44 @@
             </div>
             
             <i id="weather-icon-main" data-lucide="cloud" class="w-16 h-16 text-royal-dark mx-auto mb-2"></i>
-            <div class="font-serif-title text-5xl text-royal-dark mb-1"><span id="weather-temp">--</span>°</div>
+            <div class="font-serif-title text-5xl text-royal-dark mb-1"><span id="weather-temp">--</span><span class="text-2xl align-top">°C</span></div>
             <p id="weather-desc" class="text-sm text-gray-500 font-medium mb-6">--</p>
 
-            <div class="flex justify-between border-t border-gray-100 pt-4">
-                <div class="text-center">
-                    <i data-lucide="wind" class="w-4 h-4 text-gray-300 mx-auto mb-1"></i>
+            <div class="grid grid-cols-3 gap-2 border-t border-gray-100 pt-4 pb-4">
+                <div class="text-center p-2 bg-royal-base rounded-lg">
+                    <i data-lucide="thermometer" class="w-4 h-4 text-royal-gold mx-auto mb-1"></i>
+                    <div class="text-[9px] text-gray-400 uppercase">Terasa</div>
+                    <div id="weather-feels" class="text-xs font-bold text-royal-dark">--</div>
+                </div>
+                <div class="text-center p-2 bg-royal-base rounded-lg">
+                    <i data-lucide="wind" class="w-4 h-4 text-royal-gold mx-auto mb-1"></i>
+                    <div class="text-[9px] text-gray-400 uppercase">Angin</div>
                     <div id="weather-wind" class="text-xs font-bold text-royal-dark">--</div>
                 </div>
-                <div class="text-center">
-                    <i data-lucide="droplets" class="w-4 h-4 text-gray-300 mx-auto mb-1"></i>
+                <div class="text-center p-2 bg-royal-base rounded-lg">
+                    <i data-lucide="droplets" class="w-4 h-4 text-royal-gold mx-auto mb-1"></i>
+                    <div class="text-[9px] text-gray-400 uppercase">Hujan</div>
                     <div id="weather-rain" class="text-xs font-bold text-royal-dark">--</div>
                 </div>
             </div>
+
+            <div class="flex justify-between items-center bg-royal-dark text-white p-3 rounded-xl mt-1">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="sunrise" class="w-5 h-5 text-royal-gold"></i>
+                    <div class="text-left">
+                        <div class="text-[9px] text-gray-400 uppercase">Terbit</div>
+                        <div id="weather-sunrise" class="text-sm font-bold">--:--</div>
+                    </div>
+                </div>
+                <div class="h-8 w-[1px] bg-white/20"></div>
+                <div class="flex items-center gap-2">
+                    <div class="text-right">
+                        <div class="text-[9px] text-gray-400 uppercase">Terbenam</div>
+                        <div id="weather-sunset" class="text-sm font-bold">--:--</div>
+                    </div>
+                    <i data-lucide="sunset" class="w-5 h-5 text-royal-gold"></i>
+                </div>
+             </div>
         </div>
     </div>
 
@@ -263,6 +315,7 @@
                         <option value="EUR">EUR</option>
                         <option value="SGD">SGD</option>
                         <option value="MYR">MYR</option>
+                        <option value="JPY">JPY</option>
                     </select>
                 </div>
 
@@ -277,16 +330,91 @@
     </div>
 
     <script>
-        // --- CONFIG ---
+        // --- DATABASE LOKASI LENGKAP ---
         const cities = [
-            { name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284 },
-            { name: "Bandung", lat: -6.9175, lng: 107.6191 },
-            { name: "Surabaya", lat: -7.2575, lng: 112.7521 },
-            { name: "Yogyakarta", lat: -7.7956, lng: 110.3695 },
-            { name: "Medan", lat: 3.5952, lng: 98.6722 },
-            { name: "Makassar", lat: -5.1477, lng: 119.4328 },
+            { name: "Ambon", lat: -3.6954, lng: 128.1814 },
+            { name: "Balikpapan", lat: -1.2379, lng: 116.8529 },
             { name: "Banda Aceh", lat: 5.5483, lng: 95.3238 },
-            { name: "Denpasar", lat: -8.6705, lng: 115.2126 }
+            { name: "Bandar Lampung", lat: -5.3971, lng: 105.2668 },
+            { name: "Bandung", lat: -6.9175, lng: 107.6191 },
+            { name: "Banjarmasin", lat: -3.3194, lng: 114.5908 },
+            { name: "Batam", lat: 1.1455, lng: 104.0570 },
+            { name: "Bekasi", lat: -6.2383, lng: 106.9756 },
+            { name: "Bengkulu", lat: -3.8004, lng: 102.2655 },
+            { name: "Bogor", lat: -6.5971, lng: 106.8060 },
+            { name: "Cirebon", lat: -6.7320, lng: 108.5523 },
+            { name: "Denpasar", lat: -8.6705, lng: 115.2126 },
+            { name: "Depok", lat: -6.4025, lng: 106.7942 },
+            { name: "Gorontalo", lat: 0.5435, lng: 123.0568 },
+            { name: "Jakarta Barat", lat: -6.1674, lng: 106.7637 },
+            { name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284 },
+            { name: "Jakarta Selatan", lat: -6.2615, lng: 106.8106 },
+            { name: "Jakarta Timur", lat: -6.2250, lng: 106.9004 },
+            { name: "Jakarta Utara", lat: -6.1214, lng: 106.8827 },
+            { name: "Jambi", lat: -1.6101, lng: 103.6131 },
+            { name: "Jayapura", lat: -2.5000, lng: 140.7167 },
+            { name: "Kendari", lat: -3.9973, lng: 122.5123 },
+            { name: "Kupang", lat: -10.1772, lng: 123.6070 },
+            { name: "Makassar", lat: -5.1477, lng: 119.4328 },
+            { name: "Malang", lat: -7.9666, lng: 112.6326 },
+            { name: "Manado", lat: 1.4748, lng: 124.8421 },
+            { name: "Mataram", lat: -8.5833, lng: 116.1167 },
+            { name: "Medan", lat: 3.5952, lng: 98.6722 },
+            { name: "Padang", lat: -0.9471, lng: 100.4172 },
+            { name: "Palangkaraya", lat: -2.2106, lng: 113.9144 },
+            { name: "Palembang", lat: -2.9761, lng: 104.7754 },
+            { name: "Palu", lat: -0.9010, lng: 119.8398 },
+            { name: "Pekanbaru", lat: 0.5071, lng: 101.4478 },
+            { name: "Pontianak", lat: -0.0263, lng: 109.3425 },
+            { name: "Samarinda", lat: -0.4949, lng: 117.1436 },
+            { name: "Semarang", lat: -6.9667, lng: 110.4167 },
+            { name: "Serang", lat: -6.1104, lng: 106.1639 },
+            { name: "Sorong", lat: -0.8767, lng: 131.2558 },
+            { name: "Surabaya", lat: -7.2575, lng: 112.7521 },
+            { name: "Surakarta (Solo)", lat: -7.5755, lng: 110.8243 },
+            { name: "Tangerang", lat: -6.1732, lng: 106.6300 },
+            { name: "Tanjung Pinang", lat: 0.9167, lng: 104.4500 },
+            { name: "Tasikmalaya", lat: -7.3274, lng: 108.2207 },
+            { name: "Yogyakarta", lat: -7.7956, lng: 110.3695 }
+        ];
+
+        // --- DATABASE QUOTES ---
+        const quotesDb = [
+            {
+                arab: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ وَإِنَّهَا لَكَبِيرَةٌ إِلَّا عَلَى الْخَاشِعِينَ",
+                arti: "\"Dan jadikanlah sabar dan shalat sebagai penolongmu. Dan sesungguhnya yang demikian itu sungguh berat, kecuali bagi orang-orang yang khusyu.\"",
+                ref: "QS. Al-Baqarah: 45"
+            },
+            {
+                arab: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",
+                arti: "\"Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.\"",
+                ref: "QS. Ar-Ra'd: 28"
+            },
+            {
+                arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا , إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+                arti: "\"Karena sesungguhnya sesudah kesulitan itu ada kemudahan. Sesungguhnya sesudah kesulitan itu ada kemudahan.\"",
+                ref: "QS. Al-Insyirah: 5-6"
+            },
+            {
+                arab: "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ",
+                arti: "\"Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar.\"",
+                ref: "QS. Al-Ankabut: 45"
+            },
+            {
+                arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+                arti: "\"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.\"",
+                ref: "QS. Al-Baqarah: 286"
+            },
+            {
+                arab: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ",
+                arti: "\"Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.\"",
+                ref: "QS. Ad-Dhuha: 5"
+            },
+            {
+                arab: "إِنَّ مَعِيَ رَبِّي سَيَهْدِينِ",
+                arti: "\"Sesungguhnya Tuhanku besertaku; kelak Dia akan memberi petunjuk kepadaku.\"",
+                ref: "QS. Asy-Syu'ara: 62"
+            }
         ];
 
         const els = {
@@ -301,12 +429,21 @@
             // Modal Elements
             qiblatDeg: document.getElementById('qiblat-degree'),
             compass: document.getElementById('compass-arrow'),
+            // Weather Elements
             wTemp: document.getElementById('weather-temp'),
             wDesc: document.getElementById('weather-desc'),
             wIcon: document.getElementById('weather-icon-main'),
             wLoc: document.getElementById('weather-loc-name'),
             wWind: document.getElementById('weather-wind'),
             wRain: document.getElementById('weather-rain'),
+            wFeels: document.getElementById('weather-feels'),
+            wSunrise: document.getElementById('weather-sunrise'),
+            wSunset: document.getElementById('weather-sunset'),
+            // Quote Elements
+            qArab: document.getElementById('quote-arab'),
+            qArti: document.getElementById('quote-arti'),
+            qRef: document.getElementById('quote-ref'),
+            // Other
             cAmount: document.getElementById('curr-amount'),
             cFrom: document.getElementById('curr-from'),
             cRes: document.getElementById('curr-result'),
@@ -314,16 +451,21 @@
             sList: document.getElementById('search-result-list')
         };
 
-        let currentLoc = cities[0];
+        // Default: Jakarta Pusat
+        let currentLoc = cities.find(c => c.name === "Jakarta Pusat") || cities[0];
         let prayerTimes = null;
 
         // --- INIT ---
         function init() {
+            // Sort Cities
+            cities.sort((a,b) => a.name.localeCompare(b.name));
+
             // Populate Select
             cities.forEach(c => {
                 let opt = document.createElement('option');
                 opt.value = JSON.stringify(c);
                 opt.text = c.name;
+                if(c.name === currentLoc.name) opt.selected = true;
                 els.locSelect.add(opt);
             });
             els.locSelect.addEventListener('change', (e) => updateLoc(JSON.parse(e.target.value)));
@@ -332,7 +474,7 @@
             els.cAmount.addEventListener('input', calcCurrency);
             els.cFrom.addEventListener('change', calcCurrency);
             els.sInput.addEventListener('change', searchDate);
-            els.sInput.valueAsDate = new Date(); // Default today
+            els.sInput.valueAsDate = new Date(); 
 
             // Start
             updateClock();
@@ -344,6 +486,7 @@
             currentLoc = loc;
             els.locName.innerText = loc.name;
             fetchPrayer(loc.lat, loc.lng);
+            els.wTemp.innerText = "--"; 
         }
 
         // --- PRAYER LOGIC ---
@@ -357,7 +500,7 @@
                     els.hijri.innerText = `${data.data.date.hijri.day} ${data.data.date.hijri.month.en} ${data.data.date.hijri.year}H`;
                     calcNextPrayer(new Date());
                 }
-            } catch(e) {}
+            } catch(e) { console.error("Error fetch prayer:", e); }
         }
 
         function updateClock() {
@@ -379,18 +522,15 @@
                 return { key: k, name: pNames[k], time: prayerTimes[k], min: timeToMin(prayerTimes[k]) };
             });
 
-            // Is Friday?
             if(now.getDay() === 5) {
                  const dz = pList.find(x=>x.key==='Dhuhr');
                  if(dz) dz.name = "Jumat";
             }
 
-            // Find Next
             for(let p of pList) {
-                if(p.name === 'Terbit') continue; // Skip sunrise for next prayer logic
+                if(p.name === 'Terbit') continue; 
                 if(p.min > nowMin) {
                     next = p;
-                    // Countdown
                     const diffSec = (p.min * 60) - (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds());
                     const h = Math.floor(diffSec/3600).toString().padStart(2,'0');
                     const m = Math.floor((diffSec%3600)/60).toString().padStart(2,'0');
@@ -407,7 +547,6 @@
             
             els.nextName.innerText = next.name;
 
-            // Render List
             pList.forEach(p => {
                 const active = (next.name === p.name);
                 const isSun = p.name === 'Terbit';
@@ -431,10 +570,33 @@
             if(id==='qiblat-modal') calcQibla();
             if(id==='weather-modal') fetchWeather();
             if(id==='currency-modal') calcCurrency();
+            if(id==='quote-modal') renderQuote();
         }
         window.closeModal = (id) => document.getElementById(id).classList.remove('active');
 
-        // Qibla
+        // Feature: Quotes
+        function renderQuote() {
+            // Animate out slightly
+            els.qArab.style.opacity = 0;
+            els.qArti.style.opacity = 0;
+            
+            setTimeout(() => {
+                const r = quotesDb[Math.floor(Math.random() * quotesDb.length)];
+                els.qArab.innerText = r.arab;
+                els.qArti.innerText = r.arti;
+                els.qRef.innerText = r.ref;
+                
+                // Animate in
+                els.qArab.style.opacity = 1;
+                els.qArti.style.opacity = 1;
+                // Add simple fade transition via CSS class manipulation if desired, 
+                // but direct style manip works for simple needs
+                els.qArab.style.transition = 'opacity 0.5s';
+                els.qArti.style.transition = 'opacity 0.5s';
+            }, 200);
+        }
+
+        // Feature: Qibla
         function calcQibla() {
             const lat1 = currentLoc.lat * (Math.PI/180);
             const lon1 = currentLoc.lng * (Math.PI/180);
@@ -447,14 +609,13 @@
             els.compass.style.transform = `rotate(${b}deg)`;
         }
 
-        // Search Date
+        // Feature: Search Date
         async function searchDate() {
             const dVal = els.sInput.value;
             if(!dVal) return;
             const [y,m,d] = dVal.split('-');
             const dateStr = `${d}-${m}-${y}`;
             els.sList.innerHTML = '<div class="text-center text-xs p-4">Loading...</div>';
-            
             try {
                 const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${currentLoc.lat}&longitude=${currentLoc.lng}&method=20`);
                 const data = await res.json();
@@ -471,28 +632,48 @@
                     </div>`;
                 });
                 els.sList.innerHTML = html;
-            } catch(e) { els.sList.innerHTML = 'Error'; }
+            } catch(e) { els.sList.innerHTML = 'Error data'; }
         }
 
-        // Weather
+        // Feature: Weather
         async function fetchWeather() {
             els.wLoc.innerText = currentLoc.name;
             try {
-                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${currentLoc.lat}&longitude=${currentLoc.lng}&current_weather=true&daily=precipitation_probability_max&timezone=auto`);
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${currentLoc.lat}&longitude=${currentLoc.lng}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m&daily=sunrise,sunset,precipitation_probability_max&timezone=auto`);
                 const d = await res.json();
-                if(d.current_weather) {
-                    els.wTemp.innerText = Math.round(d.current_weather.temperature);
-                    els.wWind.innerText = d.current_weather.windspeed + " km/h";
-                    els.wDesc.innerText = getWeatherCode(d.current_weather.weathercode);
-                    if(d.daily) els.wRain.innerText = (d.daily.precipitation_probability_max?.[0] || 0) + "%";
+                if(d.current) {
+                    els.wTemp.innerText = Math.round(d.current.temperature_2m);
+                    els.wDesc.innerText = getWeatherCode(d.current.weather_code);
+                    const iconName = getWeatherIcon(d.current.weather_code, d.current.is_day);
+                    els.wIcon.setAttribute('data-lucide', iconName);
+                    lucide.createIcons();
+                    els.wFeels.innerText = Math.round(d.current.apparent_temperature) + "°";
+                    els.wWind.innerText = d.current.wind_speed_10m + " km/h";
+                    els.wRain.innerText = (d.daily.precipitation_probability_max?.[0] || 0) + "%";
+                    const fmtTime = (iso) => {
+                        if(!iso) return "--:--";
+                        const date = new Date(iso);
+                        return date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+                    };
+                    els.wSunrise.innerText = fmtTime(d.daily.sunrise?.[0]);
+                    els.wSunset.innerText = fmtTime(d.daily.sunset?.[0]);
                 }
-            } catch(e){}
-        }
-        function getWeatherCode(c) {
-            if(c===0) return "Cerah"; if(c<=3) return "Berawan"; if(c>=51) return "Hujan"; return "Mendung";
+            } catch(e){ els.wDesc.innerText = "Gagal memuat cuaca"; }
         }
 
-        // Currency
+        function getWeatherCode(c) {
+            if(c===0) return "Cerah Langit Biru"; if(c<=3) return "Berawan Cerah"; if(c===45 || c===48) return "Berkabut";
+            if(c>=51 && c<=55) return "Gerimis Ringan"; if(c>=61 && c<=65) return "Hujan"; if(c>=80 && c<=82) return "Hujan Lebat";
+            if(c>=95) return "Hujan Badai"; return "Mendung";
+        }
+
+        function getWeatherIcon(c, isDay) {
+            if(c === 0) return isDay ? "sun" : "moon"; if(c <= 3) return isDay ? "cloud-sun" : "cloud-moon";
+            if(c >= 51 && c <= 67) return "cloud-drizzle"; if(c >= 80 && c <= 99) return "cloud-lightning";
+            if(c >= 71) return "snowflake"; return "cloud";
+        }
+
+        // Feature: Currency
         async function calcCurrency() {
             els.cRes.innerText = "...";
             try {
