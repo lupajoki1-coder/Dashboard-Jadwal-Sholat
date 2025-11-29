@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dashboard Jadwal Sholat</title>
+    <title>Prayer Time Elegant</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,29 +11,22 @@
             theme: {
                 extend: {
                     colors: {
-                        tech: {
-                            base: '#f8fafc',
+                        royal: {
+                            base: '#fdfbf7',     // Cream White
+                            gold: '#b49b56',     // Muted Gold
+                            dark: '#2d2a26',     // Charcoal
                             surface: '#ffffff',
-                            primary: '#0ea5e9',
-                            accent: '#6366f1',
-                            text: '#0f172a'
+                            accent: '#d4af37'    // Classic Gold
                         }
                     },
                     fontFamily: {
-                        hud: ['Orbitron', 'sans-serif'],
-                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
                         arab: ['Amiri', 'serif']
                     },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'spin-slow': 'spin 12s linear infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
                     }
                 }
             }
@@ -42,708 +35,471 @@
     
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f1f5f9;
-            color: #1e293b;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7;
+            color: #2d2a26;
+            overflow: hidden; /* Prevent body scroll, use container scroll */
         }
 
-        /* CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+        /* BACKGROUND IMAGE */
+        .bg-wallpaper {
+            /* Minimalist Bright Modern Architecture AI Style */
+            background-image: url('https://images.unsplash.com/photo-1590076215667-875d4ef2d7ee?q=80&w=2000&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+        }
 
-        /* GLASS PANEL */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.75);
+        /* GLASSMORPHISM CARD */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        .glass-dock {
+            background: rgba(45, 42, 38, 0.95); /* Dark dock for contrast */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 
-                0 4px 6px -1px rgba(0, 0, 0, 0.05),
-                0 10px 15px -3px rgba(0, 0, 0, 0.05),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
         }
 
-        .glass-panel:hover {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-            transform: translateY(-2px);
-        }
+        /* TYPOGRAPHY UTILS */
+        .font-serif-title { font-family: 'Playfair Display', serif; }
 
-        /* COMPASS STYLE */
-        .compass-ring {
-            background: conic-gradient(from 0deg, #cbd5e1 0%, #ffffff 50%, #cbd5e1 100%);
-            border-radius: 50%;
-            box-shadow: 
-                inset 0 0 20px rgba(0,0,0,0.1),
-                0 10px 20px rgba(0,0,0,0.1);
-        }
-        .qibla-pointer {
-            transform-origin: bottom center;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* SCROLL HIDE */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* GRADIENT TEXT */
-        .text-gradient {
-            background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-enter { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* MODAL ANIMATION */
-        .modal {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
+        /* ACTIVE LIST ITEM */
+        .prayer-active {
+            background: linear-gradient(135deg, #2d2a26 0%, #4a453e 100%);
+            color: #ffffff;
+            border-left: 4px solid #b49b56;
         }
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            transform: scale(0.95) translateY(10px);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .modal.active .modal-content {
-            transform: scale(1) translateY(0);
-        }
+        .prayer-active .icon-gold { color: #b49b56; }
+        .prayer-active .text-muted { color: rgba(255,255,255,0.7); }
+
+        /* COMPASS */
+        .qibla-pointer { transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        
+        /* MODAL */
+        .modal { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content { transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+
     </style>
 </head>
-<body class="min-h-screen flex flex-col md:flex-row pb-24 md:pb-0">
+<body class="bg-wallpaper h-screen w-screen flex flex-col items-center justify-center relative">
 
-    <div class="fixed inset-0 z-0">
-        <div class="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-blue-200/40 rounded-full blur-[100px] animate-pulse-slow"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-cyan-200/40 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 2s;"></div>
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/80 pointer-events-none"></div>
 
-    <nav class="z-40 fixed bottom-0 left-0 right-0 md:relative md:w-24 md:h-screen bg-white/80 backdrop-blur-xl border-t md:border-t-0 md:border-r border-slate-200 flex md:flex-col justify-around md:justify-center items-center py-3 md:gap-8 shadow-2xl md:shadow-none">
+    <main class="relative z-10 w-full h-full md:max-w-[480px] md:h-[90vh] md:rounded-[2.5rem] md:shadow-2xl md:border-[8px] md:border-white/50 bg-white/60 backdrop-blur-sm flex flex-col overflow-hidden animate-enter">
         
-        <button class="group flex flex-col items-center gap-1 text-blue-600" title="Dashboard">
-            <div class="p-3 rounded-2xl bg-blue-50 group-hover:bg-blue-100 group-hover:shadow-lg transition-all">
-                <i data-lucide="layout-grid" class="w-6 h-6"></i>
-            </div>
-            <span class="text-[10px] font-bold text-slate-600 group-hover:text-blue-600 mt-1 md:block hidden">Home</span>
-        </button>
-
-        <button onclick="alert('Fitur Al-Quran Digital (Coming Soon)')" class="group flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition-colors" title="Al-Quran">
-            <div class="p-3 rounded-2xl group-hover:bg-blue-50 transition-all">
-                <i data-lucide="book-open" class="w-6 h-6"></i>
-            </div>
-            <span class="text-[10px] font-bold mt-1 md:block hidden">Quran</span>
-        </button>
-
-        <button onclick="openModal('qiblat-modal')" class="group flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600 transition-colors" title="Arah Kiblat">
-            <div class="p-3 rounded-2xl group-hover:bg-blue-50 transition-all">
-                <i data-lucide="compass" class="w-6 h-6"></i>
-            </div>
-            <span class="text-[10px] font-bold mt-1 md:block hidden">Kiblat</span>
-        </button>
-        
-        </nav>
-
-    <main class="relative z-10 flex-1 p-4 md:p-8 overflow-y-auto max-h-screen custom-scroll">
-        
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <header class="pt-6 pb-2 px-6 flex justify-between items-end shrink-0">
             <div>
-                <h1 class="font-hud text-2xl md:text-4xl font-black italic tracking-tighter text-slate-800 uppercase flex items-center gap-2">
-                    Dashboard <span class="text-gradient">Jadwal Sholat</span>
-                </h1>
-                <p id="date-display" class="text-slate-500 text-xs font-bold tracking-[0.2em] uppercase mt-1 pl-1">Menginisialisasi Sistem...</p>
-            </div>
-
-            <div class="w-full md:w-auto flex items-center gap-2 bg-white/60 p-1.5 rounded-2xl border border-white shadow-sm backdrop-blur-md">
-                <div class="relative w-full md:w-64">
-                    <i data-lucide="map-pin" class="absolute left-3 top-2.5 w-4 h-4 text-blue-500"></i>
-                    <select id="location-select" class="w-full bg-transparent text-sm font-bold text-slate-700 pl-9 pr-8 py-2 focus:outline-none cursor-pointer appearance-none">
-                        </select>
-                    <i data-lucide="chevron-down" class="absolute right-3 top-2.5 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                <p id="date-display" class="text-[10px] tracking-[0.25em] font-bold text-royal-gold uppercase mb-1">...</p>
+                <div class="flex items-center gap-1 group cursor-pointer" id="loc-trigger">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-royal-dark"></i>
+                    <h1 id="location-name" class="font-serif-title text-xl font-bold text-royal-dark truncate max-w-[180px]">Mendeteksi...</h1>
+                    <i data-lucide="chevron-down" class="w-3 h-3 text-gray-400"></i>
                 </div>
-                <button id="btn-gps" class="p-2 bg-white hover:bg-blue-50 text-blue-600 rounded-xl transition-all shadow-sm border border-slate-100" title="Gunakan GPS">
-                    <i data-lucide="crosshair" class="w-4 h-4"></i>
-                </button>
+            </div>
+            <div id="clock-display" class="font-mono font-bold text-lg text-royal-dark/80 bg-white/50 px-3 py-1 rounded-full border border-white">
+                00:00
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <select id="location-select" class="absolute top-6 left-6 w-48 opacity-0 z-20 h-8 cursor-pointer">
+            </select>
 
-            <div class="lg:col-span-8 flex flex-col gap-6">
-                
-                <div class="glass-panel rounded-[2rem] p-8 flex flex-col items-center justify-center relative min-h-[220px] text-center">
-                    <div class="absolute inset-0 bg-gradient-to-br from-white via-transparent to-blue-50/50 rounded-[2rem]"></div>
-                    <div id="clock-display" class="relative font-hud text-7xl sm:text-8xl md:text-9xl font-black text-slate-800 tracking-tighter z-10">
-                        00:00
+        <div class="px-6 py-4 shrink-0">
+            <div class="glass-card rounded-[2rem] p-6 relative overflow-hidden group">
+                <div class="absolute -right-10 -top-10 w-40 h-40 rounded-full border-[1px] border-royal-gold/20"></div>
+                <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full border-[1px] border-royal-gold/20"></div>
+
+                <div class="relative z-10 text-center">
+                    <span class="inline-block py-1 px-3 rounded-full bg-royal-gold/10 text-royal-gold text-[10px] font-bold uppercase tracking-widest mb-2">
+                        Menuju Waktu Sholat
+                    </span>
+                    <h2 id="next-prayer-name" class="font-serif-title text-5xl text-royal-dark font-medium mb-1 tracking-tight">...</h2>
+                    <div id="countdown-timer" class="font-mono text-gray-500 text-sm font-medium tracking-wide">
+                        -- : -- : --
                     </div>
-                    <div class="relative z-10 flex items-center gap-3 mt-2">
-                         <span class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Online
-                        </span>
-                        <div id="hijri-date" class="font-arab text-amber-600 text-xl font-bold">Loading...</div>
-                    </div>
-                </div>
-
-                <div class="relative group rounded-[2rem] overflow-hidden min-h-[260px] shadow-2xl shadow-blue-900/10 transition-transform hover:-translate-y-1 duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700"></div>
-                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
-
-                    <div class="relative z-10 p-8 md:p-10 flex flex-col justify-between h-full text-white">
-                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                            <div>
-                                <div class="flex items-center gap-2 mb-2 opacity-90">
-                                    <span class="bg-white/20 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm">Selanjutnya</span>
-                                </div>
-                                <h2 id="next-prayer-name" class="font-hud text-5xl md:text-7xl font-bold tracking-tight mb-2">...</h2>
-                                <p class="text-blue-100 text-sm max-w-md hidden md:block font-medium leading-relaxed">"Sesungguhnya sholat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman."</p>
-                            </div>
-                            
-                            <div class="flex flex-row md:flex-col items-center md:items-end justify-between md:justify-start gap-4">
-                                <div id="next-prayer-time" class="font-hud text-4xl md:text-6xl font-bold">--:--</div>
-                                <div id="countdown-timer" class="px-4 py-2 bg-black/20 backdrop-blur-md rounded-xl font-mono font-bold text-amber-300 border border-white/10 shadow-lg">
-                                    -- : -- : --
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-4 flex flex-col gap-6">
-                
-                <div class="glass-panel rounded-[2rem] p-6 flex flex-col flex-1 max-h-[450px]">
-                    <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4 flex items-center gap-2 px-2">
-                        <span class="p-1.5 bg-blue-100 text-blue-600 rounded-lg"><i data-lucide="list-todo" class="w-4 h-4"></i></span>
-                        Jadwal Hari Ini
-                    </h3>
-                    <div id="prayer-list" class="space-y-2 overflow-y-auto pr-2 custom-scroll flex-1">
-                        </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <button onclick="openModal('weather-modal')" class="glass-panel p-5 rounded-[1.5rem] flex flex-col items-center justify-center gap-3 hover:bg-white group transition-all relative overflow-hidden">
-                        <div class="absolute inset-0 bg-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="p-3 bg-blue-100 text-blue-600 rounded-2xl group-hover:scale-110 transition-transform relative z-10">
-                            <i data-lucide="cloud-sun" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-xs font-bold text-slate-600 relative z-10">Info Cuaca</span>
-                    </button>
-
-                    <button onclick="openModal('date-modal')" class="glass-panel p-5 rounded-[1.5rem] flex flex-col items-center justify-center gap-3 hover:bg-white group transition-all relative overflow-hidden">
-                        <div class="absolute inset-0 bg-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="p-3 bg-purple-100 text-purple-600 rounded-2xl group-hover:scale-110 transition-transform relative z-10">
-                            <i data-lucide="calendar-search" class="w-6 h-6"></i>
-                        </div>
-                        <span class="text-xs font-bold text-slate-600 relative z-10">Cari Jadwal</span>
-                    </button>
                     
-                    </div>
-                 <div class="grid grid-cols-1">
-                    <button onclick="openModal('currency-modal')" class="glass-panel p-4 rounded-[1.5rem] flex items-center justify-between hover:bg-white group transition-all relative overflow-hidden">
-                        <div class="flex items-center gap-3">
-                             <div class="p-2 bg-emerald-100 text-emerald-600 rounded-xl">
-                                <i data-lucide="banknote" class="w-5 h-5"></i>
-                            </div>
-                            <span class="text-xs font-bold text-slate-600">Kurs Rupiah</span>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300"></i>
-                    </button>
-                 </div>
-
-                <div class="glass-panel rounded-[2rem] p-6 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-100 rounded-bl-[4rem] -mr-4 -mt-4 opacity-50"></div>
-                    <h3 class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-3">Mutiara Ayat</h3>
-                    <div class="text-center relative z-10">
-                        <p id="quran-arab" class="font-arab text-2xl text-slate-800 mb-2 leading-relaxed dir-rtl" style="direction: rtl;">...</p>
-                        <p id="quran-trans" class="text-xs text-slate-500 italic mb-3 line-clamp-2">...</p>
-                        <span id="quran-ref" class="inline-block text-[10px] font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-100">...</span>
+                    <div class="mt-4 pt-4 border-t border-gray-200/60 flex justify-center items-center gap-2">
+                        <span id="hijri-date" class="font-arab text-lg text-royal-dark">...</span>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar px-6 pb-24 space-y-3" id="prayer-list">
+            </div>
+
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px]">
+            <div class="glass-dock rounded-2xl p-2 flex justify-between items-center px-4 shadow-soft">
+                
+                <button onclick="openModal('qiblat-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                    <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
+                        <i data-lucide="compass" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Kiblat</span>
+                </button>
+
+                <button onclick="openModal('date-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                    <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
+                        <i data-lucide="calendar-search" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Cari</span>
+                </button>
+
+                <button onclick="openModal('weather-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                    <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
+                        <i data-lucide="cloud-sun" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Cuaca</span>
+                </button>
+
+                <button onclick="openModal('currency-modal')" class="flex flex-col items-center gap-1 p-2 group w-16">
+                    <div class="p-2 rounded-xl bg-white/10 text-white group-hover:bg-royal-gold group-hover:text-white transition-all">
+                        <i data-lucide="banknote" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-[9px] font-medium text-gray-400 group-hover:text-white">Kurs</span>
+                </button>
+
+            </div>
+        </div>
+
     </main>
 
-    <div id="qiblat-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 backdrop-blur-sm p-4">
-        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-8 shadow-2xl relative flex flex-col items-center">
-            <button onclick="closeModal('qiblat-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
+    <div id="qiblat-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
+        <div class="modal-content w-full max-w-xs bg-white rounded-[2rem] p-6 shadow-2xl relative text-center">
+            <button onclick="closeModal('qiblat-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="font-serif-title text-xl text-royal-dark font-bold mb-6">Arah Kiblat</h3>
             
-            <h3 class="font-hud text-lg text-slate-800 font-bold mb-1">Arah Kiblat</h3>
-            <p id="qiblat-city" class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-8">Loading...</p>
-
-            <div class="relative w-64 h-64 mb-8">
-                <div class="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
-                <div class="absolute inset-2 border border-dashed border-slate-300 rounded-full"></div>
-                <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-3 bg-white px-1 text-xs font-bold text-slate-400">U</div>
-                
-                <div id="compass-arrow-container" class="w-full h-full flex items-center justify-center qibla-pointer">
-                    <div class="relative w-1 h-32 bg-gradient-to-t from-slate-200 to-transparent origin-bottom">
-                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center shadow-lg border-2 border-amber-400">
-                             <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
-                        </div>
-                        <div class="absolute -top-10 left-1/2 -translate-x-1/2 text-[10px] font-bold bg-slate-800 text-white px-2 py-0.5 rounded">
-                            KA'BAH
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                     <div class="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow"></div>
-                </div>
-            </div>
-
-            <div class="text-center bg-slate-50 p-4 rounded-2xl w-full">
-                <div class="text-[10px] font-bold text-slate-400 uppercase">Sudut Derajat</div>
-                <div id="qiblat-degree" class="font-mono text-3xl font-bold text-slate-800">--°</div>
-                <div class="text-[10px] text-slate-500 mt-1">Dari Arah Utara</div>
-            </div>
-        </div>
-    </div>
-
-    <div id="date-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 backdrop-blur-sm p-4">
-        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-6 shadow-2xl relative h-[500px] flex flex-col">
-            <button onclick="closeModal('date-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
-
-            <h3 class="font-hud text-lg text-slate-800 font-bold mb-4">Cari Jadwal</h3>
-
-            <div class="bg-purple-50 p-4 rounded-2xl mb-4 border border-purple-100">
-                <label class="text-[10px] font-bold text-purple-600 uppercase mb-2 block">Pilih Tanggal</label>
-                <input type="date" id="search-date-input" class="w-full bg-white border border-purple-200 rounded-xl px-4 py-3 text-slate-700 font-bold focus:outline-none focus:ring-2 focus:ring-purple-400">
-            </div>
-
-            <div class="flex-1 overflow-y-auto custom-scroll relative">
-                <div id="search-result-list" class="space-y-2 pb-4">
-                    <div class="flex flex-col items-center justify-center h-40 text-slate-400">
-                        <i data-lucide="calendar" class="w-8 h-8 mb-2 opacity-50"></i>
-                        <span class="text-xs">Pilih tanggal untuk melihat jadwal</span>
+            <div class="relative w-56 h-56 mx-auto mb-6">
+                <div class="absolute inset-0 border-[6px] border-royal-base rounded-full shadow-inner"></div>
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-400">U</div>
+                <div id="compass-arrow" class="w-full h-full flex items-center justify-center qibla-pointer">
+                    <div class="w-1 h-24 bg-gradient-to-t from-transparent to-royal-gold origin-bottom relative -translate-y-12">
+                         <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                            <i data-lucide="navigation" class="w-6 h-6 text-royal-dark fill-royal-gold"></i>
+                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="weather-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 backdrop-blur-sm p-4">
-        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-6 shadow-2xl relative">
-            <button onclick="closeModal('weather-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
             
-            <div class="flex flex-col items-center text-center mt-2">
-                <span id="weather-loc-name" class="text-xs font-bold text-blue-500 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full mb-4">Memuat...</span>
-                <i id="weather-icon-main" data-lucide="cloud" class="w-20 h-20 text-blue-500 mb-2 filter drop-shadow-lg"></i>
-                <div class="flex items-start justify-center text-slate-800">
-                    <span id="weather-temp" class="font-hud text-6xl font-bold tracking-tighter">--</span>
-                    <span class="text-2xl font-bold text-slate-400 mt-2">°C</span>
-                </div>
-                <span id="weather-desc" class="text-sm font-bold text-slate-500 mt-1">--</span>
-            </div>
-            <div class="grid grid-cols-3 gap-3 mt-8">
-                <div class="bg-slate-50 p-3 rounded-2xl text-center">
-                    <i data-lucide="wind" class="w-4 h-4 text-slate-400 mx-auto mb-1"></i>
-                    <div id="weather-wind" class="text-xs font-bold text-slate-700">--</div>
-                    <div class="text-[10px] text-slate-400">Angin</div>
-                </div>
-                <div class="bg-slate-50 p-3 rounded-2xl text-center">
-                    <i data-lucide="droplets" class="w-4 h-4 text-slate-400 mx-auto mb-1"></i>
-                    <div id="weather-rain" class="text-xs font-bold text-slate-700">--</div>
-                    <div class="text-[10px] text-slate-400">Hujan</div>
-                </div>
-                <div class="bg-slate-50 p-3 rounded-2xl text-center">
-                    <i data-lucide="thermometer" class="w-4 h-4 text-slate-400 mx-auto mb-1"></i>
-                    <div id="weather-range" class="text-xs font-bold text-slate-700">--</div>
-                    <div class="text-[10px] text-slate-400">Range</div>
+            <div class="text-3xl font-mono font-bold text-royal-dark mb-1" id="qiblat-degree">--°</div>
+            <p class="text-xs text-gray-400">Derajat dari Utara</p>
+        </div>
+    </div>
+
+    <div id="date-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
+        <div class="modal-content w-full max-w-xs bg-white rounded-[2rem] p-6 shadow-2xl relative h-[450px] flex flex-col">
+            <button onclick="closeModal('date-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="font-serif-title text-xl text-royal-dark font-bold mb-4">Cari Jadwal</h3>
+            
+            <input type="date" id="search-date-input" class="w-full bg-royal-base border-none rounded-xl px-4 py-3 text-royal-dark font-medium focus:ring-2 focus:ring-royal-gold mb-4 outline-none">
+            
+            <div id="search-result-list" class="flex-1 overflow-y-auto no-scrollbar space-y-2">
+                <div class="flex flex-col items-center justify-center h-full text-gray-400 text-sm">
+                    <i data-lucide="calendar" class="w-8 h-8 mb-2 opacity-30"></i>
+                    Pilih tanggal
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="currency-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/30 backdrop-blur-sm p-4">
-        <div class="modal-content w-full max-w-sm bg-white rounded-[2rem] p-6 shadow-2xl relative">
-            <button onclick="closeModal('currency-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 bg-slate-100 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-4 h-4"></i></button>
-
-            <div class="mb-6">
-                <h3 class="font-hud text-xl text-slate-800 font-bold">Kalkulator Kurs</h3>
-                <p class="text-xs text-emerald-500 font-bold uppercase tracking-widest mt-1">Real-Time Update</p>
+    <div id="weather-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
+        <div class="modal-content w-full max-w-xs bg-white rounded-[2rem] p-6 shadow-2xl relative text-center">
+            <button onclick="closeModal('weather-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            
+            <div class="mb-4">
+                <span id="weather-loc-name" class="text-[10px] font-bold tracking-widest uppercase text-royal-gold border border-royal-gold/30 px-2 py-0.5 rounded">Lokasi</span>
             </div>
-            <div class="space-y-4">
-                <div class="flex gap-3">
-                    <div class="flex-1">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block pl-2">Jumlah</label>
-                        <input type="number" id="curr-amount" value="1" class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-4 py-3 text-slate-800 font-bold focus:border-emerald-400 focus:bg-white focus:outline-none transition-colors shadow-sm">
-                    </div>
-                    <div class="w-28">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block pl-2">Mata Uang</label>
-                        <div class="relative">
-                            <select id="curr-from" class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-3 py-3 text-slate-800 font-bold focus:border-emerald-400 focus:outline-none appearance-none">
-                                <option value="USD">USD</option>
-                                <option value="SAR">SAR</option>
-                                <option value="EUR">EUR</option>
-                                <option value="SGD">SGD</option>
-                                <option value="MYR">MYR</option>
-                                <option value="JPY">JPY</option>
-                            </select>
-                            <i data-lucide="chevron-down" class="absolute right-3 top-3.5 w-4 h-4 text-slate-400 pointer-events-none"></i>
-                        </div>
-                    </div>
+            
+            <i id="weather-icon-main" data-lucide="cloud" class="w-16 h-16 text-royal-dark mx-auto mb-2"></i>
+            <div class="font-serif-title text-5xl text-royal-dark mb-1"><span id="weather-temp">--</span>°</div>
+            <p id="weather-desc" class="text-sm text-gray-500 font-medium mb-6">--</p>
+
+            <div class="flex justify-between border-t border-gray-100 pt-4">
+                <div class="text-center">
+                    <i data-lucide="wind" class="w-4 h-4 text-gray-300 mx-auto mb-1"></i>
+                    <div id="weather-wind" class="text-xs font-bold text-royal-dark">--</div>
                 </div>
-                <div class="bg-emerald-50 rounded-2xl p-5 text-center border border-emerald-100 relative overflow-hidden">
-                    <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Hasil Konversi (IDR)</span>
-                    <div id="curr-result" class="font-mono text-3xl font-bold text-emerald-700">Rp 0</div>
+                <div class="text-center">
+                    <i data-lucide="droplets" class="w-4 h-4 text-gray-300 mx-auto mb-1"></i>
+                    <div id="weather-rain" class="text-xs font-bold text-royal-dark">--</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="currency-modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-royal-dark/40 backdrop-blur-sm p-4">
+        <div class="modal-content w-full max-w-xs bg-white rounded-[2rem] p-6 shadow-2xl relative">
+            <button onclick="closeModal('currency-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-royal-dark"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <h3 class="font-serif-title text-xl text-royal-dark font-bold mb-6">Konversi Kurs</h3>
+
+            <div class="space-y-3">
+                <div class="bg-royal-base p-3 rounded-xl flex items-center gap-2">
+                    <input type="number" id="curr-amount" value="1" class="bg-transparent w-full font-bold text-royal-dark outline-none" placeholder="1">
+                    <select id="curr-from" class="bg-transparent font-bold text-gray-500 text-sm outline-none cursor-pointer">
+                        <option value="USD">USD</option>
+                        <option value="SAR">SAR</option>
+                        <option value="EUR">EUR</option>
+                        <option value="SGD">SGD</option>
+                        <option value="MYR">MYR</option>
+                    </select>
+                </div>
+
+                <div class="flex justify-center text-gray-300"><i data-lucide="arrow-down" class="w-4 h-4"></i></div>
+
+                <div class="bg-royal-dark p-4 rounded-xl text-center text-white">
+                    <span class="text-[10px] text-gray-400 uppercase tracking-widest block mb-1">IDR (Rupiah)</span>
+                    <div id="curr-result" class="font-mono text-xl font-bold">Rp 0</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- DATA ---
-        const citiesGrouped = {
-            "Metropolitan": [
-                { name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284 },
-                { name: "Surabaya", lat: -7.2575, lng: 112.7521 },
-                { name: "Bandung", lat: -6.9175, lng: 107.6191 },
-                { name: "Medan", lat: 3.5952, lng: 98.6722 },
-                { name: "Makassar", lat: -5.1477, lng: 119.4328 }
-            ],
-            "Jawa": [
-                { name: "Semarang", lat: -6.9667, lng: 110.4167 },
-                { name: "Yogyakarta", lat: -7.7956, lng: 110.3695 },
-                { name: "Solo", lat: -7.5755, lng: 110.8243 },
-                { name: "Malang", lat: -7.9666, lng: 112.6326 },
-                { name: "Bogor", lat: -6.5971, lng: 106.8060 }
-            ],
-            "Luar Jawa": [
-                { name: "Banda Aceh", lat: 5.5483, lng: 95.3238 },
-                { name: "Denpasar", lat: -8.6705, lng: 115.2126 },
-                { name: "Balikpapan", lat: -1.2379, lng: 116.8529 },
-                { name: "Jayapura", lat: -2.5489, lng: 140.7181 }
-            ]
-        };
-
-        const motivationalVerses = [
-            [94, 6], [2, 153], [3, 200], [65, 3], [13, 28]
+        // --- CONFIG ---
+        const cities = [
+            { name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284 },
+            { name: "Bandung", lat: -6.9175, lng: 107.6191 },
+            { name: "Surabaya", lat: -7.2575, lng: 112.7521 },
+            { name: "Yogyakarta", lat: -7.7956, lng: 110.3695 },
+            { name: "Medan", lat: 3.5952, lng: 98.6722 },
+            { name: "Makassar", lat: -5.1477, lng: 119.4328 },
+            { name: "Banda Aceh", lat: 5.5483, lng: 95.3238 },
+            { name: "Denpasar", lat: -8.6705, lng: 115.2126 }
         ];
 
-        let currentPrayerTimes = null;
-        let currentLocation = citiesGrouped["Metropolitan"][0];
-
-        // --- DOM ---
         const els = {
-            clock: document.getElementById('clock-display'),
             date: document.getElementById('date-display'),
-            hijri: document.getElementById('hijri-date'),
+            locName: document.getElementById('location-name'),
+            locSelect: document.getElementById('location-select'),
+            clock: document.getElementById('clock-display'),
             nextName: document.getElementById('next-prayer-name'),
-            nextTime: document.getElementById('next-prayer-time'),
             countdown: document.getElementById('countdown-timer'),
+            hijri: document.getElementById('hijri-date'),
             list: document.getElementById('prayer-list'),
-            locationSelect: document.getElementById('location-select'),
-            gpsBtn: document.getElementById('btn-gps'),
-            // Widgets
-            weatherLocName: document.getElementById('weather-loc-name'),
-            weatherTemp: document.getElementById('weather-temp'),
-            weatherDesc: document.getElementById('weather-desc'),
-            weatherIconMain: document.getElementById('weather-icon-main'),
-            weatherWind: document.getElementById('weather-wind'),
-            weatherRain: document.getElementById('weather-rain'),
-            weatherRange: document.getElementById('weather-range'),
-            currAmount: document.getElementById('curr-amount'),
-            currFrom: document.getElementById('curr-from'),
-            currResult: document.getElementById('curr-result'),
-            // Quran
-            quranArab: document.getElementById('quran-arab'),
-            quranTrans: document.getElementById('quran-trans'),
-            quranRef: document.getElementById('quran-ref'),
-            // Qiblat
-            qiblatCity: document.getElementById('qiblat-city'),
-            qiblatDegree: document.getElementById('qiblat-degree'),
-            compassArrow: document.getElementById('compass-arrow-container'),
-            // Date Search
-            searchInput: document.getElementById('search-date-input'),
-            searchList: document.getElementById('search-result-list')
+            // Modal Elements
+            qiblatDeg: document.getElementById('qiblat-degree'),
+            compass: document.getElementById('compass-arrow'),
+            wTemp: document.getElementById('weather-temp'),
+            wDesc: document.getElementById('weather-desc'),
+            wIcon: document.getElementById('weather-icon-main'),
+            wLoc: document.getElementById('weather-loc-name'),
+            wWind: document.getElementById('weather-wind'),
+            wRain: document.getElementById('weather-rain'),
+            cAmount: document.getElementById('curr-amount'),
+            cFrom: document.getElementById('curr-from'),
+            cRes: document.getElementById('curr-result'),
+            sInput: document.getElementById('search-date-input'),
+            sList: document.getElementById('search-result-list')
         };
+
+        let currentLoc = cities[0];
+        let prayerTimes = null;
 
         // --- INIT ---
         function init() {
-            initDropdown();
-            setInterval(updateClock, 1000);
-            updateClock();
-            updateLocation(currentLocation);
+            // Populate Select
+            cities.forEach(c => {
+                let opt = document.createElement('option');
+                opt.value = JSON.stringify(c);
+                opt.text = c.name;
+                els.locSelect.add(opt);
+            });
+            els.locSelect.addEventListener('change', (e) => updateLoc(JSON.parse(e.target.value)));
             
             // Listeners
-            els.currAmount.addEventListener('input', calculateCurrency);
-            els.currFrom.addEventListener('change', calculateCurrency);
-            els.searchInput.addEventListener('change', handleDateSearch);
-            
-            // Set today's date on picker
-            els.searchInput.valueAsDate = new Date();
+            els.cAmount.addEventListener('input', calcCurrency);
+            els.cFrom.addEventListener('change', calcCurrency);
+            els.sInput.addEventListener('change', searchDate);
+            els.sInput.valueAsDate = new Date(); // Default today
+
+            // Start
+            updateClock();
+            setInterval(updateClock, 1000);
+            updateLoc(currentLoc);
         }
 
-        function initDropdown() {
-            els.locationSelect.innerHTML = "";
-            for (const [region, cities] of Object.entries(citiesGrouped)) {
-                const group = document.createElement('optgroup');
-                group.label = region;
-                cities.forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = JSON.stringify(city);
-                    option.textContent = city.name;
-                    if(city.name === "Jakarta Pusat") option.selected = true;
-                    group.appendChild(option);
-                });
-                els.locationSelect.appendChild(group);
-            }
-            els.locationSelect.addEventListener('change', (e) => {
-                updateLocation(JSON.parse(e.target.value));
-            });
-            els.gpsBtn.addEventListener('click', handleGPS);
+        function updateLoc(loc) {
+            currentLoc = loc;
+            els.locName.innerText = loc.name;
+            fetchPrayer(loc.lat, loc.lng);
         }
 
-        // --- MODALS ---
-        window.openModal = function(id) {
-            document.getElementById(id).classList.add('active');
-            if(id === 'currency-modal') calculateCurrency();
-            if(id === 'weather-modal') fetchWeather(currentLocation.lat, currentLocation.lng, currentLocation.name);
-            if(id === 'qiblat-modal') calculateQibla();
-        }
-        window.closeModal = function(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) e.target.classList.remove('active');
-        }
-
-        // --- CORE LOGIC ---
-        function updateLocation(locData) {
-            currentLocation = locData;
-            fetchData(locData.lat, locData.lng);
-        }
-
-        async function fetchData(lat, lng) {
+        // --- PRAYER LOGIC ---
+        async function fetchPrayer(lat, lng) {
             try {
-                const dateStr = Math.floor(Date.now() / 1000);
-                const adhanRes = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${lat}&longitude=${lng}&method=20`);
-                const adhanData = await adhanRes.json();
-                if (adhanData.data) {
-                    currentPrayerTimes = adhanData.data.timings;
-                    const h = adhanData.data.date.hijri;
-                    els.hijri.innerText = `${h.day} ${h.month.en} ${h.year} H`;
-                    determineNextPrayer(new Date());
-                }
-                // Fetch Quran
-                const randomPick = motivationalVerses[Math.floor(Math.random() * motivationalVerses.length)];
-                const quranRes = await fetch(`https://equran.id/api/v2/surat/${randomPick[0]}`);
-                const quranData = await quranRes.json();
-                if (quranData.data) {
-                    const verseData = quranData.data.ayat.find(a => a.nomorAyat === randomPick[1]);
-                    els.quranArab.innerText = verseData.teksArab;
-                    els.quranTrans.innerText = `"${verseData.teksIndonesia}"`;
-                    els.quranRef.innerText = `QS. ${quranData.data.namaLatin} : ${verseData.nomorAyat}`;
-                }
-            } catch (e) { console.error(e); }
-        }
-
-        // --- DATE SEARCH LOGIC ---
-        async function handleDateSearch() {
-            const dateVal = els.searchInput.value;
-            if(!dateVal) return;
-
-            // Format YYYY-MM-DD to DD-MM-YYYY
-            const [y, m, d] = dateVal.split('-');
-            const formattedDate = `${d}-${m}-${y}`;
-
-            els.searchList.innerHTML = '<div class="text-center text-slate-400 py-10">Memuat Jadwal...</div>';
-
-            try {
-                const url = `https://api.aladhan.com/v1/timings/${formattedDate}?latitude=${currentLocation.lat}&longitude=${currentLocation.lng}&method=20`;
-                const res = await fetch(url);
+                const date = Math.floor(Date.now() / 1000);
+                const res = await fetch(`https://api.aladhan.com/v1/timings/${date}?latitude=${lat}&longitude=${lng}&method=20`);
                 const data = await res.json();
-                
-                if(data.data && data.data.timings) {
-                    renderSearchList(data.data.timings, data.data.date.readable);
-                } else {
-                    els.searchList.innerHTML = '<div class="text-center text-red-400">Gagal memuat data.</div>';
-                }
-            } catch(e) {
-                els.searchList.innerHTML = '<div class="text-center text-red-400">Error koneksi.</div>';
-            }
-        }
-
-        function renderSearchList(timings, dateStr) {
-            els.searchList.innerHTML = '';
-            const p = [
-                {n:'Subuh', t:timings.Fajr},
-                {n:'Terbit', t:timings.Sunrise},
-                {n:'Dzuhur', t:timings.Dhuhr},
-                {n:'Ashar', t:timings.Asr},
-                {n:'Maghrib', t:timings.Maghrib},
-                {n:'Isya', t:timings.Isha}
-            ];
-
-            // Header Date
-            const dateHeader = document.createElement('div');
-            dateHeader.className = "text-center text-sm font-bold text-slate-800 mb-4 bg-slate-100 py-1 rounded-lg";
-            dateHeader.innerText = dateStr;
-            els.searchList.appendChild(dateHeader);
-
-            p.forEach(x => {
-                const item = document.createElement('div');
-                item.className = "flex justify-between items-center px-4 py-3 bg-white border border-slate-100 rounded-xl mb-2";
-                if(x.n === 'Terbit') item.className += " opacity-60 bg-transparent border-dashed";
-                
-                item.innerHTML = `
-                    <span class="font-bold text-slate-600 text-sm">${x.n}</span>
-                    <span class="font-mono font-bold text-slate-800">${x.t}</span>
-                `;
-                els.searchList.appendChild(item);
-            });
-        }
-
-        // --- QIBLAT LOGIC ---
-        function calculateQibla() {
-            els.qiblatCity.innerText = currentLocation.name;
-            
-            // Coords
-            const lat1 = currentLocation.lat * (Math.PI/180);
-            const lon1 = currentLocation.lng * (Math.PI/180);
-            const lat2 = 21.422487 * (Math.PI/180); // Kaaba
-            const lon2 = 39.826206 * (Math.PI/180); // Kaaba
-
-            const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
-            const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
-            
-            let bearing = Math.atan2(y, x);
-            bearing = (bearing * 180 / Math.PI + 360) % 360; // To Degrees
-
-            els.qiblatDegree.innerText = Math.round(bearing) + "°";
-            // Rotate the Arrow Container to point to that degree
-            els.compassArrow.style.transform = `rotate(${bearing}deg)`;
-        }
-
-        // --- CLOCK & NEXT PRAYER ---
-        function updateClock() {
-            const now = new Date();
-            els.clock.innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-            if (currentPrayerTimes) determineNextPrayer(now);
-        }
-
-        function determineNextPrayer(now) {
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-            const timeToMinutes = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
-            const prayerList = [
-                { name: 'Subuh', time: currentPrayerTimes.Fajr },
-                { name: 'Terbit', time: currentPrayerTimes.Sunrise, type: 'info' },
-                { name: 'Dzuhur', time: currentPrayerTimes.Dhuhr },
-                { name: 'Ashar', time: currentPrayerTimes.Asr },
-                { name: 'Maghrib', time: currentPrayerTimes.Maghrib },
-                { name: 'Isya', time: currentPrayerTimes.Isha },
-            ];
-            if(now.getDay() === 5) {
-                const idx = prayerList.findIndex(p => p.name === 'Dzuhur');
-                if(idx !== -1) prayerList[idx].name = "Jumat";
-            }
-            let upcoming = null;
-            let found = false;
-            for (let p of prayerList) {
-                if (p.type === 'info') continue;
-                const pMin = timeToMinutes(p.time);
-                if (pMin > currentMinutes) {
-                    upcoming = p;
-                    found = true;
-                    const targetSec = pMin * 60;
-                    const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-                    let diff = targetSec - nowSec;
-                    const h = Math.floor(diff / 3600);
-                    const m = Math.floor((diff % 3600) / 60);
-                    const s = diff % 60;
-                    els.countdown.innerText = `-${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                    break;
-                }
-            }
-            if (!found) {
-                upcoming = { name: 'Subuh (Esok)', time: currentPrayerTimes.Fajr };
-                els.countdown.innerText = "Istirahat";
-            }
-            els.nextName.innerText = upcoming.name;
-            els.nextTime.innerText = upcoming.time;
-            renderList(prayerList, upcoming.name);
-        }
-
-        function renderList(list, activeName) {
-            els.list.innerHTML = '';
-            list.forEach(p => {
-                const isActive = activeName.includes(p.name);
-                const isSunrise = p.name === 'Terbit';
-                const div = document.createElement('div');
-                div.className = `flex justify-between items-center px-4 py-3 rounded-2xl transition-all ${
-                    isActive 
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30' 
-                    : 'bg-white hover:bg-slate-50 border border-slate-100 text-slate-600'
-                } ${isSunrise ? 'opacity-50 text-xs py-2 bg-transparent border-none text-slate-400' : ''}`;
-                div.innerHTML = `
-                    <span class="font-bold flex items-center gap-3">
-                        ${isActive ? '<i data-lucide="clock" class="w-4 h-4 animate-spin-slow"></i>' : (isSunrise ? '<i data-lucide="sun" class="w-3 h-3"></i>' : '<div class="w-1.5 h-1.5 rounded-full bg-slate-300"></div>')}
-                        ${p.name}
-                    </span>
-                    <span class="font-mono font-bold text-lg">${p.time}</span>
-                `;
-                els.list.appendChild(div);
-            });
-            lucide.createIcons();
-        }
-
-        function handleGPS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        updateLocation({ name: "Lokasi GPS", lat: pos.coords.latitude, lng: pos.coords.longitude });
-                        alert("Lokasi GPS aktif.");
-                    },
-                    () => alert("Gagal mengambil GPS.")
-                );
-            }
-        }
-
-        // --- WIDGET FETCHERS ---
-        async function fetchWeather(lat, lng, name) {
-            els.weatherLocName.innerText = name;
-            try {
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`;
-                const res = await fetch(url);
-                const data = await res.json();
-                if (data.current_weather) {
-                    const c = data.current_weather;
-                    els.weatherTemp.innerText = Math.round(c.temperature);
-                    els.weatherDesc.innerText = getWeatherDesc(c.weathercode);
-                    els.weatherWind.innerText = c.windspeed + " km/h";
-                    updateWeatherIcon(els.weatherIconMain, c.weathercode);
-                    if(data.daily) {
-                        const d = data.daily;
-                        els.weatherRange.innerText = `${Math.round(d.temperature_2m_min[0])}/${Math.round(d.temperature_2m_max[0])}°`;
-                        els.weatherRain.innerText = (d.precipitation_probability_max ? d.precipitation_probability_max[0] : 0) + "%";
-                    }
+                if(data.data) {
+                    prayerTimes = data.data.timings;
+                    els.hijri.innerText = `${data.data.date.hijri.day} ${data.data.date.hijri.month.en} ${data.data.date.hijri.year}H`;
+                    calcNextPrayer(new Date());
                 }
             } catch(e) {}
         }
-        function updateWeatherIcon(el, code) {
-            let icon = "cloud";
-            if (code === 0) icon = "sun"; else if (code <= 3) icon = "cloud-sun"; else if (code >= 51) icon = "cloud-rain";
-            el.setAttribute('data-lucide', icon); lucide.createIcons();
+
+        function updateClock() {
+            const now = new Date();
+            els.clock.innerText = now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+            els.date.innerText = now.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long'});
+            if(prayerTimes) calcNextPrayer(now);
         }
-        function getWeatherDesc(code) { if (code === 0) return "Cerah"; if (code <= 3) return "Berawan"; if (code >= 51) return "Hujan"; return "Mendung"; }
-        async function calculateCurrency() {
-            const amount = parseFloat(els.currAmount.value) || 0;
-            const from = els.currFrom.value;
-            els.currResult.innerText = "loading...";
+
+        function calcNextPrayer(now) {
+            const pNames = {Fajr:'Subuh', Sunrise:'Terbit', Dhuhr:'Dzuhur', Asr:'Ashar', Maghrib:'Maghrib', Isha:'Isya'};
+            const timeToMin = t => { const[h,m]=t.split(':').map(Number); return h*60+m; };
+            const nowMin = now.getHours()*60 + now.getMinutes();
+            
+            let next = null;
+            let listHTML = '';
+
+            const pList = ['Fajr', 'Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'].map(k => {
+                return { key: k, name: pNames[k], time: prayerTimes[k], min: timeToMin(prayerTimes[k]) };
+            });
+
+            // Is Friday?
+            if(now.getDay() === 5) {
+                 const dz = pList.find(x=>x.key==='Dhuhr');
+                 if(dz) dz.name = "Jumat";
+            }
+
+            // Find Next
+            for(let p of pList) {
+                if(p.name === 'Terbit') continue; // Skip sunrise for next prayer logic
+                if(p.min > nowMin) {
+                    next = p;
+                    // Countdown
+                    const diffSec = (p.min * 60) - (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds());
+                    const h = Math.floor(diffSec/3600).toString().padStart(2,'0');
+                    const m = Math.floor((diffSec%3600)/60).toString().padStart(2,'0');
+                    const s = (diffSec%60).toString().padStart(2,'0');
+                    els.countdown.innerText = `- ${h}:${m}:${s}`;
+                    break;
+                }
+            }
+
+            if(!next) {
+                next = { name: 'Subuh', time: prayerTimes.Fajr };
+                els.countdown.innerText = "Istirahat";
+            }
+            
+            els.nextName.innerText = next.name;
+
+            // Render List
+            pList.forEach(p => {
+                const active = (next.name === p.name);
+                const isSun = p.name === 'Terbit';
+                
+                listHTML += `
+                <div class="flex justify-between items-center p-4 rounded-2xl transition-all ${active ? 'prayer-active shadow-lg transform scale-[1.02]' : 'bg-white/50 border border-white hover:bg-white'} ${isSun ? 'opacity-50' : ''}">
+                    <div class="flex items-center gap-3">
+                        ${active ? '<i data-lucide="clock" class="w-4 h-4 icon-gold animate-pulse"></i>' : (isSun ? '<i data-lucide="sun" class="w-4 h-4 text-gray-400"></i>' : '<div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>')}
+                        <span class="font-medium ${active ? 'text-white' : 'text-gray-600'}">${p.name}</span>
+                    </div>
+                    <span class="font-mono text-lg font-bold ${active ? 'text-white' : 'text-royal-dark'}">${p.time}</span>
+                </div>`;
+            });
+            els.list.innerHTML = listHTML;
+            lucide.createIcons();
+        }
+
+        // --- UTILS & MODALS ---
+        window.openModal = function(id) {
+            document.getElementById(id).classList.add('active');
+            if(id==='qiblat-modal') calcQibla();
+            if(id==='weather-modal') fetchWeather();
+            if(id==='currency-modal') calcCurrency();
+        }
+        window.closeModal = (id) => document.getElementById(id).classList.remove('active');
+
+        // Qibla
+        function calcQibla() {
+            const lat1 = currentLoc.lat * (Math.PI/180);
+            const lon1 = currentLoc.lng * (Math.PI/180);
+            const lat2 = 21.422487 * (Math.PI/180);
+            const lon2 = 39.826206 * (Math.PI/180);
+            const y = Math.sin(lon2-lon1) * Math.cos(lat2);
+            const x = Math.cos(lat1)*Math.sin(lat2) - Math.sin(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1);
+            let b = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+            els.qiblatDeg.innerText = Math.round(b) + "°";
+            els.compass.style.transform = `rotate(${b}deg)`;
+        }
+
+        // Search Date
+        async function searchDate() {
+            const dVal = els.sInput.value;
+            if(!dVal) return;
+            const [y,m,d] = dVal.split('-');
+            const dateStr = `${d}-${m}-${y}`;
+            els.sList.innerHTML = '<div class="text-center text-xs p-4">Loading...</div>';
+            
             try {
-                const res = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=IDR`);
+                const res = await fetch(`https://api.aladhan.com/v1/timings/${dateStr}?latitude=${currentLoc.lat}&longitude=${currentLoc.lng}&method=20`);
                 const data = await res.json();
-                if(data.rates) els.currResult.innerText = "Rp " + data.rates.IDR.toLocaleString('id-ID', {maximumFractionDigits:0});
-            } catch(e) { els.currResult.innerText = "Error"; }
+                const t = data.data.timings;
+                const p = [
+                    {n:'Subuh', v:t.Fajr}, {n:'Terbit', v:t.Sunrise}, {n:'Dzuhur', v:t.Dhuhr},
+                    {n:'Ashar', v:t.Asr}, {n:'Maghrib', v:t.Maghrib}, {n:'Isya', v:t.Isha}
+                ];
+                let html = '';
+                p.forEach(x => {
+                    html += `<div class="flex justify-between p-3 bg-gray-50 rounded-xl">
+                        <span class="text-xs font-bold text-gray-500">${x.n}</span>
+                        <span class="text-xs font-mono font-bold">${x.v}</span>
+                    </div>`;
+                });
+                els.sList.innerHTML = html;
+            } catch(e) { els.sList.innerHTML = 'Error'; }
+        }
+
+        // Weather
+        async function fetchWeather() {
+            els.wLoc.innerText = currentLoc.name;
+            try {
+                const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${currentLoc.lat}&longitude=${currentLoc.lng}&current_weather=true&daily=precipitation_probability_max&timezone=auto`);
+                const d = await res.json();
+                if(d.current_weather) {
+                    els.wTemp.innerText = Math.round(d.current_weather.temperature);
+                    els.wWind.innerText = d.current_weather.windspeed + " km/h";
+                    els.wDesc.innerText = getWeatherCode(d.current_weather.weathercode);
+                    if(d.daily) els.wRain.innerText = (d.daily.precipitation_probability_max?.[0] || 0) + "%";
+                }
+            } catch(e){}
+        }
+        function getWeatherCode(c) {
+            if(c===0) return "Cerah"; if(c<=3) return "Berawan"; if(c>=51) return "Hujan"; return "Mendung";
+        }
+
+        // Currency
+        async function calcCurrency() {
+            els.cRes.innerText = "...";
+            try {
+                const res = await fetch(`https://api.frankfurter.app/latest?amount=${els.cAmount.value}&from=${els.cFrom.value}&to=IDR`);
+                const d = await res.json();
+                els.cRes.innerText = "Rp " + d.rates.IDR.toLocaleString('id-ID', {maximumFractionDigits:0});
+            } catch(e) { els.cRes.innerText = "Error"; }
         }
 
         init();
