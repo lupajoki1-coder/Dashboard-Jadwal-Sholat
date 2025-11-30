@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Prayer Time 3D Ultimate</title>
+    <title>Prayer Time Hyper-3D Fix</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,7 +13,7 @@
                     colors: {
                         royal: {
                             base: '#fdfbf7',     
-                            gold: '#b49b56',     
+                            gold: '#C5A059',     
                             dark: '#1a1816',     
                             surface: '#ffffff',
                             accent: '#d4af37'    
@@ -25,13 +25,13 @@
                         arab: ['Amiri', 'serif']
                     },
                     boxShadow: {
-                        '3d-float': '0 20px 40px -10px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.6) inset',
-                        '3d-pop': '0 10px 25px -5px rgba(0,0,0,0.1), 0 5px 10px -5px rgba(0,0,0,0.05)',
-                        'inner-light': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.8)',
-                        'dock': '0 -10px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+                        'glass-thick': 'inset 1px 1px 0px 0px rgba(255, 255, 255, 0.7), inset -1px -1px 0px 0px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0,0,0,0.15)',
+                        'floating': '0 20px 40px -10px rgba(0,0,0,0.25)',
+                        'inner-depth': 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.8)',
+                        'pop-out': '5px 5px 10px rgba(0,0,0,0.1), -5px -5px 10px rgba(255,255,255,0.8), inset 0 0 0 1px rgba(255,255,255,0.5)'
                     },
                     dropShadow: {
-                        'text-3d': '0 2px 4px rgba(0,0,0,0.1)'
+                        '3d': '0 2px 3px rgba(0,0,0,0.2)'
                     }
                 }
             }
@@ -49,7 +49,7 @@
         :root { --app-height: 100dvh; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0ebe5;
+            background-color: #e8e8e8;
             color: #2d2a26;
             height: var(--app-height);
             overflow: hidden; 
@@ -63,69 +63,66 @@
             background-position: center;
         }
 
-        /* 3D GLASS CARD STYLE */
-        .glass-3d {
-            background: linear-gradient(160deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+        /* 3D BEVELED GLASS CARD */
+        .glass-bevel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             
-            /* The 3D Bevel Effect */
             border-top: 1px solid rgba(255, 255, 255, 0.9);
             border-left: 1px solid rgba(255, 255, 255, 0.9);
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Thicker bottom for weight */
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.15); 
             
-            box-shadow: 
-                0 20px 50px -10px rgba(0, 0, 0, 0.15), /* Deep shadow */
-                inset 0 0 20px rgba(255, 255, 255, 0.8); /* Inner glow */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .glass-dock-3d {
-            background: rgba(30, 28, 26, 0.96);
+        /* FLOATING DOCK SHELF */
+        .dock-shelf {
+            background: rgba(30, 30, 30, 0.9);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 4px solid rgba(0,0,0,0.5); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
 
         /* UTILS */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* CLICK EFFECT (Pressed) */
         .tap-effect:active { 
             transform: scale(0.96) translateY(2px); 
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.1s; 
+            border-bottom-width: 0px;
+            margin-top: 2px; 
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ANIMATIONS (Only for modal & load) */
+        /* ANIMATIONS */
         @keyframes modalUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0px); } }
-        .animate-enter { animation: modalUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
-        .animate-float { animation: float 5s ease-in-out infinite; }
+        @keyframes shine { 0% { left: -100%; } 100% { left: 200%; } }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); } 50% { box-shadow: 0 0 25px rgba(197, 160, 89, 0.6); } }
 
-        /* ACTIVE LIST ITEM 3D POP */
+        .animate-enter { animation: modalUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+        
+        /* ACTIVE LIST ITEM 3D TILE */
         .prayer-active-3d {
-            background: linear-gradient(135deg, #2d2a26 0%, #45413c 100%);
+            background: linear-gradient(145deg, #2d2a26, #1a1816);
             color: #ffffff;
-            border-left: 4px solid #b49b56;
-            
-            /* Pop out effect */
-            transform: scale(1.02) translateY(-2px);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 4px solid rgba(0,0,0,0.5);
+            border-right: 1px solid rgba(0,0,0,0.5);
+            transform: scale(1.02);
             z-index: 10;
-            
-            /* Strong Shadow */
-            box-shadow: 
-                0 15px 30px -5px rgba(0,0,0,0.2), 
-                0 0 0 1px rgba(255,255,255,0.2) inset;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        /* INACTIVE LIST ITEM DEPTH */
         .prayer-inactive {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-bottom: 2px solid rgba(0,0,0,0.03); /* Slight bevel */
+            background: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255,255,255,0.8);
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         
         /* MODAL */
@@ -140,57 +137,55 @@
             width: 100%; max-width: 500px;
             border-radius: 2.5rem 2.5rem 0 0;
             padding-bottom: env(safe-area-inset-bottom);
-            
-            /* Modal 3D Look */
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
             border-top: 1px solid rgba(255,255,255,0.8);
         }
         .modal.active .modal-content { transform: translateY(0); }
 
-        /* Text 3D */
-        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+        .text-emboss { text-shadow: 0 1px 0 rgba(255,255,255,0.4); }
 
     </style>
 </head>
 <body class="bg-wallpaper flex flex-col items-center justify-center relative">
 
-    <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-gray-100/40 to-gray-200/80 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-black/30 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise.png')] opacity-[0.03] pointer-events-none"></div>
 
-    <main class="relative z-10 w-full h-full md:max-w-[440px] md:h-[95vh] md:rounded-[3rem] md:border-[8px] md:border-white/40 bg-white/20 backdrop-blur-sm flex flex-col overflow-hidden animate-enter shadow-2xl ring-1 ring-black/5">
+    <main class="relative z-10 w-full h-full md:max-w-[460px] md:h-[95vh] md:rounded-[3rem] md:border-[10px] md:border-white/30 bg-white/10 backdrop-blur-sm flex flex-col overflow-hidden animate-enter shadow-2xl ring-1 ring-white/40">
         
-        <header class="pt-8 pb-2 px-6 flex justify-between items-center shrink-0">
+        <header class="pt-8 pb-3 px-6 flex justify-between items-center shrink-0">
             <div class="flex-1 min-w-0">
-                <p id="date-display" class="text-[9px] tracking-[0.25em] font-bold text-royal-gold uppercase mb-1 drop-shadow-sm">...</p>
+                <p id="date-display" class="text-[10px] tracking-[0.25em] font-bold text-royal-dark/70 uppercase mb-1 drop-shadow-sm">...</p>
                 <div class="relative group inline-block max-w-full">
-                    <div class="flex items-center gap-2 cursor-pointer bg-white/40 px-3 py-1.5 rounded-xl border border-white/60 shadow-sm transition-all active:scale-95" id="loc-trigger">
-                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-royal-dark shrink-0 fill-royal-dark/20"></i>
-                        <h1 id="location-name" class="font-serif-title text-lg font-bold text-royal-dark truncate text-shadow">Mendeteksi...</h1>
-                        <i data-lucide="chevron-down" class="w-3 h-3 text-gray-500 shrink-0"></i>
+                    <div class="flex items-center gap-2 cursor-pointer bg-white/70 px-4 py-2 rounded-2xl border-t border-l border-white shadow-pop-out active:shadow-inner-depth transition-all" id="loc-trigger">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-royal-dark shrink-0 fill-royal-gold/50"></i>
+                        <h1 id="location-name" class="font-serif-title text-xl font-bold text-royal-dark truncate text-emboss">Mendeteksi...</h1>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-500 shrink-0"></i>
                     </div>
                     <select id="location-select" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-20"></select>
                 </div>
             </div>
-            <div id="clock-display" class="font-mono font-bold text-sm text-royal-dark bg-white/80 px-3 py-1.5 rounded-xl border-b-[3px] border-white shadow-md shrink-0 ml-2">
+            <div id="clock-display" class="font-mono font-bold text-base text-royal-dark bg-[#f0f0f0] px-4 py-2 rounded-xl border-b-4 border-r border-gray-300 shadow-md shrink-0 ml-2 text-emboss">
                 00:00
             </div>
         </header>
 
-        <div class="px-5 py-4 shrink-0">
-            <div class="glass-3d rounded-[2rem] p-6 relative overflow-hidden group transition-all duration-300">
-                <div class="absolute -left-[50%] -top-[50%] w-[200%] h-[200%] bg-gradient-to-br from-white/40 via-transparent to-transparent rotate-45 pointer-events-none"></div>
+        <div class="px-6 py-2 shrink-0">
+            <div class="glass-bevel rounded-[2.5rem] p-6 relative overflow-hidden group min-h-[220px] flex flex-col justify-center">
+                <div class="absolute top-0 -left-[100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12 animate-[shine_4s_infinite]"></div>
                 
-                <div class="relative z-10 text-center">
-                    <div class="flex justify-between items-start absolute top-0 left-0 w-full">
-                        <span class="py-1 px-3 rounded-full bg-royal-gold text-white text-[8px] font-bold uppercase tracking-widest shadow-md shadow-royal-gold/30">
-                            Selanjutnya
-                        </span>
-                        <span id="hijri-date" class="text-[10px] font-bold text-gray-400 font-arab bg-white/50 px-2 py-1 rounded-lg">...</span>
-                    </div>
+                <div class="absolute top-6 left-6 right-6 flex justify-between items-start z-20">
+                    <span class="py-1.5 px-3 rounded-full bg-royal-gold text-white text-[9px] font-bold uppercase tracking-widest shadow-md">
+                        Selanjutnya
+                    </span>
+                    <span id="hijri-date" class="text-[10px] font-bold text-royal-dark/70 font-arab bg-white/50 px-3 py-1.5 rounded-full border border-white/50 backdrop-blur-sm">...</span>
+                </div>
 
-                    <h2 id="next-prayer-name" class="font-serif-title text-[3.5rem] leading-none text-royal-dark font-medium mt-6 mb-2 tracking-tight drop-shadow-text-3d">...</h2>
+                <div class="relative z-10 text-center flex flex-col items-center pt-10">
+                    <h2 id="next-prayer-name" class="font-serif-title text-6xl md:text-[4.5rem] leading-none text-royal-dark font-medium mb-4 mt-2 tracking-tight drop-shadow-3d transition-all duration-300">...</h2>
                     
-                    <div class="inline-block bg-royal-dark/5 px-4 py-1.5 rounded-full border border-black/5 shadow-inner">
-                        <div id="countdown-timer" class="font-mono text-royal-dark text-xs font-bold tracking-wide">
+                    <div class="inline-block bg-[#e0e0e0] px-6 py-2 rounded-full border-t border-l border-gray-300 shadow-inner-depth mt-2">
+                        <div id="countdown-timer" class="font-mono text-royal-dark text-sm font-bold tracking-widest text-emboss">
                             -- : -- : --
                         </div>
                     </div>
@@ -198,35 +193,37 @@
             </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto no-scrollbar px-5 pb-28 space-y-3" id="prayer-list">
+        <div class="flex-1 overflow-y-auto no-scrollbar px-6 mt-4 pb-36 space-y-3" id="prayer-list">
             </div>
 
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] z-30">
-            <div class="glass-dock-3d rounded-[1.5rem] p-2 flex justify-between items-center shadow-dock">
+            <div class="dock-shelf rounded-2xl p-2 flex justify-between items-end px-3">
                 
-                <button onclick="openModal('qiblat-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl hover:bg-white/5 transition-colors">
-                    <i data-lucide="compass" class="w-5 h-5 text-gray-400"></i>
-                    <span class="text-[9px] font-bold text-gray-500">Kiblat</span>
+                <button onclick="openModal('qiblat-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl mb-1 hover:bg-white/10 transition-colors">
+                    <i data-lucide="compass" class="w-6 h-6 text-gray-400"></i>
+                    <span class="text-[9px] font-bold text-gray-400">Kiblat</span>
                 </button>
 
-                <button onclick="openModal('date-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl hover:bg-white/5 transition-colors">
-                    <i data-lucide="calendar-search" class="w-5 h-5 text-gray-400"></i>
-                    <span class="text-[9px] font-bold text-gray-500">Cari</span>
+                <button onclick="openModal('date-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl mb-1 hover:bg-white/10 transition-colors">
+                    <i data-lucide="calendar-search" class="w-6 h-6 text-gray-400"></i>
+                    <span class="text-[9px] font-bold text-gray-400">Cari</span>
                 </button>
 
-                <button onclick="openModal('quote-modal')" class="tap-effect -mt-10 mx-1 bg-gradient-to-b from-royal-gold to-[#9e8645] w-14 h-14 rounded-full shadow-[0_10px_20px_rgba(180,155,86,0.4)] border-4 border-[#f5f1eb] flex items-center justify-center transform hover:scale-105 transition-transform z-10 relative">
-                    <div class="absolute top-0 left-0 w-full h-full rounded-full bg-gradient-to-br from-white/30 to-transparent"></div>
-                    <i data-lucide="book-heart" class="w-6 h-6 text-white relative z-10"></i>
+                <div class="relative -top-8 mx-2 group">
+                    <button onclick="openModal('quote-modal')" class="w-16 h-16 rounded-full bg-gradient-to-br from-[#d4af37] to-[#8a7024] flex items-center justify-center shadow-[0_10px_25px_rgba(212,175,55,0.5)] border-4 border-[#f0ebe5] transform transition-transform group-hover:scale-105 group-active:scale-95 animate-[pulse-glow_3s_infinite]">
+                        <div class="absolute top-2 left-3 w-4 h-2 bg-white/40 rounded-full blur-[2px]"></div>
+                        <i data-lucide="book-heart" class="w-7 h-7 text-white drop-shadow-md"></i>
+                    </button>
+                </div>
+
+                <button onclick="openModal('weather-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl mb-1 hover:bg-white/10 transition-colors">
+                    <i data-lucide="cloud-sun" class="w-6 h-6 text-gray-400"></i>
+                    <span class="text-[9px] font-bold text-gray-400">Cuaca</span>
                 </button>
 
-                <button onclick="openModal('weather-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl hover:bg-white/5 transition-colors">
-                    <i data-lucide="cloud-sun" class="w-5 h-5 text-gray-400"></i>
-                    <span class="text-[9px] font-bold text-gray-500">Cuaca</span>
-                </button>
-
-                <button onclick="openModal('currency-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl hover:bg-white/5 transition-colors">
-                    <i data-lucide="banknote" class="w-5 h-5 text-gray-400"></i>
-                    <span class="text-[9px] font-bold text-gray-500">Kurs</span>
+                <button onclick="openModal('currency-modal')" class="tap-effect flex flex-col items-center gap-1 p-2 flex-1 rounded-xl mb-1 hover:bg-white/10 transition-colors">
+                    <i data-lucide="banknote" class="w-6 h-6 text-gray-400"></i>
+                    <span class="text-[9px] font-bold text-gray-400">Kurs</span>
                 </button>
 
             </div>
@@ -234,116 +231,114 @@
 
     </main>
 
-    <div id="qiblat-modal" class="modal fixed inset-0 z-50 bg-royal-dark/70 backdrop-blur-md">
-        <div class="modal-content bg-[#fcfaf7] p-8 relative text-center">
-            <div class="w-16 h-1.5 bg-gray-300/50 rounded-full mx-auto mb-8 shadow-inner"></div>
+    <div id="qiblat-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
+        <div class="modal-content bg-[#f8f5f2] p-8 relative text-center">
+            <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
             
-            <div class="relative w-56 h-56 mx-auto mb-8 bg-white rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-8 border-gray-100 flex items-center justify-center">
-                <div class="absolute inset-0 rounded-full shadow-inner-light"></div>
-                <div class="absolute top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-300">U</div>
-                <div id="compass-arrow" class="w-full h-full flex items-center justify-center qibla-pointer drop-shadow-lg">
-                    <div class="w-1.5 h-24 bg-gradient-to-t from-transparent via-royal-gold to-royal-gold origin-bottom relative -translate-y-12 rounded-full">
-                         <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white p-1 rounded-full shadow-md">
-                            <i data-lucide="navigation" class="w-5 h-5 text-royal-dark fill-royal-gold"></i>
+            <div class="relative w-64 h-64 mx-auto mb-8 bg-white rounded-full shadow-pop-out flex items-center justify-center border-8 border-[#f0f0f0]">
+                <div class="absolute inset-0 rounded-full shadow-inner-depth"></div>
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 text-sm font-bold text-gray-300">U</div>
+                <div id="compass-arrow" class="w-full h-full flex items-center justify-center transition-transform duration-1000 ease-out">
+                    <div class="w-2 h-28 bg-gradient-to-t from-royal-gold to-yellow-300 origin-bottom relative -translate-y-14 rounded-full shadow-lg">
+                         <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-white p-2 rounded-full shadow-md border border-gray-100">
+                            <i data-lucide="navigation" class="w-6 h-6 text-royal-dark fill-royal-gold"></i>
                          </div>
                     </div>
                 </div>
             </div>
             
-            <div class="text-4xl font-mono font-bold text-royal-dark mb-2 tracking-tighter" id="qiblat-degree">--°</div>
+            <div class="text-5xl font-mono font-bold text-royal-dark mb-2 tracking-tighter text-emboss" id="qiblat-degree">--°</div>
             <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8">Arah Kiblat</p>
-            <button onclick="closeModal('qiblat-modal')" class="w-full py-4 bg-white border border-gray-200 shadow-lg rounded-2xl font-bold text-sm text-royal-dark tap-effect">Tutup</button>
+            <button onclick="closeModal('qiblat-modal')" class="w-full py-4 bg-white border-b-4 border-gray-200 shadow-sm rounded-2xl font-bold text-royal-dark tap-effect">Tutup</button>
         </div>
     </div>
 
-    <div id="date-modal" class="modal fixed inset-0 z-50 bg-royal-dark/70 backdrop-blur-md">
-        <div class="modal-content bg-[#fcfaf7] p-6 h-[75vh] flex flex-col">
-            <div class="w-16 h-1.5 bg-gray-300/50 rounded-full mx-auto mb-6 shadow-inner"></div>
-            <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-6 shrink-0 text-center">Cari Jadwal</h3>
+    <div id="date-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
+        <div class="modal-content bg-[#f8f5f2] p-6 h-[75vh] flex flex-col">
+            <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 shadow-inner"></div>
+            <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-6 text-center text-emboss">Cari Jadwal</h3>
             
-            <div class="bg-white p-2 rounded-2xl shadow-lg border border-gray-100 mb-6 shrink-0">
-                <input type="date" id="search-date-input" class="w-full bg-royal-base/50 rounded-xl px-4 py-3 text-royal-dark font-bold focus:outline-none focus:ring-2 focus:ring-royal-gold/20">
+            <div class="bg-white p-3 rounded-2xl shadow-inner-depth mb-6 shrink-0">
+                <input type="date" id="search-date-input" class="w-full bg-transparent px-4 py-2 text-royal-dark font-bold focus:outline-none text-lg">
             </div>
             
-            <div id="search-result-list" class="flex-1 overflow-y-auto no-scrollbar space-y-3 pb-4">
-                <div class="flex flex-col items-center justify-center h-full text-gray-300 text-sm font-medium">
-                    <i data-lucide="calendar" class="w-10 h-10 mb-3 opacity-20"></i>
-                    Pilih tanggal diatas
+            <div id="search-result-list" class="flex-1 overflow-y-auto no-scrollbar space-y-3 pb-4 px-1">
+                <div class="flex flex-col items-center justify-center h-full text-gray-300">
+                    <i data-lucide="calendar" class="w-12 h-12 mb-3 opacity-20"></i>
+                    <p class="font-bold text-sm">Pilih Tanggal</p>
                 </div>
             </div>
-            <button onclick="closeModal('date-modal')" class="w-full py-4 bg-white border border-gray-200 shadow-lg rounded-2xl font-bold text-sm text-royal-dark tap-effect mt-2">Tutup</button>
+            <button onclick="closeModal('date-modal')" class="w-full py-4 bg-white border-b-4 border-gray-200 shadow-sm rounded-2xl font-bold text-royal-dark tap-effect mt-2">Tutup</button>
         </div>
     </div>
 
-    <div id="quote-modal" class="modal fixed inset-0 z-50 bg-royal-dark/70 backdrop-blur-md">
-        <div class="modal-content bg-[#fcfaf7] p-8 text-center">
-            <div class="w-16 h-1.5 bg-gray-300/50 rounded-full mx-auto mb-8 shadow-inner"></div>
+    <div id="quote-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
+        <div class="modal-content bg-[#f8f5f2] p-8 text-center">
+            <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
             
-            <div class="bg-white rounded-[2rem] p-6 shadow-xl border border-gray-100 relative mb-8">
-                <i data-lucide="quote" class="w-8 h-8 text-royal-gold/20 absolute top-4 left-4 rotate-180"></i>
-                <div class="py-4">
-                    <p id="quote-arab" class="font-arab text-2xl text-royal-dark mb-4 dir-rtl leading-[2.5] transition-opacity duration-300">...</p>
-                    <div class="w-10 h-1 bg-royal-gold/20 mx-auto rounded-full mb-4"></div>
-                    <p id="quote-arti" class="font-display italic text-gray-500 text-sm leading-relaxed transition-opacity duration-300">...</p>
+            <div class="bg-white rounded-[2rem] p-8 shadow-pop-out relative mb-8">
+                <i data-lucide="quote" class="w-10 h-10 text-royal-gold/20 absolute top-4 left-4 rotate-180"></i>
+                <div class="py-2">
+                    <p id="quote-arab" class="font-arab text-3xl text-royal-dark mb-6 dir-rtl leading-[2.2] transition-opacity duration-300 drop-shadow-sm">...</p>
+                    <div class="w-12 h-1 bg-gray-200 mx-auto rounded-full mb-6"></div>
+                    <p id="quote-arti" class="font-display italic text-gray-600 text-sm leading-relaxed transition-opacity duration-300">...</p>
                 </div>
-                <p id="quote-ref" class="text-[10px] font-bold text-royal-gold uppercase tracking-wide mt-2">...</p>
+                <p id="quote-ref" class="text-[10px] font-bold text-royal-gold uppercase tracking-wide mt-4 border border-royal-gold/20 inline-block px-2 py-1 rounded">...</p>
             </div>
 
             <div class="flex gap-4">
-                <button onclick="renderQuote()" class="flex-1 py-4 bg-royal-dark text-white rounded-2xl shadow-lg shadow-royal-dark/20 font-bold text-xs tap-effect flex justify-center items-center gap-2">
-                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Acak
+                <button onclick="renderQuote()" class="flex-1 py-4 bg-royal-dark text-white rounded-2xl border-b-4 border-black shadow-lg font-bold text-xs tap-effect flex justify-center items-center gap-2">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Acak
                 </button>
-                <button onclick="closeModal('quote-modal')" class="flex-1 py-4 bg-white border border-gray-200 text-royal-dark rounded-2xl shadow-lg font-bold text-xs tap-effect">Tutup</button>
+                <button onclick="closeModal('quote-modal')" class="flex-1 py-4 bg-white border-b-4 border-gray-200 text-royal-dark rounded-2xl shadow-sm font-bold text-xs tap-effect">Tutup</button>
             </div>
         </div>
     </div>
 
-    <div id="weather-modal" class="modal fixed inset-0 z-50 bg-royal-dark/70 backdrop-blur-md">
-        <div class="modal-content bg-[#fcfaf7] p-6 text-center">
-            <div class="w-16 h-1.5 bg-gray-300/50 rounded-full mx-auto mb-6 shadow-inner"></div>
+    <div id="weather-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
+        <div class="modal-content bg-[#f8f5f2] p-6 text-center">
+            <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 shadow-inner"></div>
             
-            <div class="bg-white rounded-[2.5rem] p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] border border-white mb-6 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-royal-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                
-                <span id="weather-loc-name" class="inline-block text-[9px] font-bold uppercase tracking-widest text-royal-gold border border-royal-gold/30 px-3 py-1 rounded-full mb-4">Lokasi</span>
+            <div class="bg-gradient-to-br from-white to-gray-50 rounded-[2.5rem] p-6 shadow-pop-out mb-6 relative overflow-hidden border border-white">
+                <span id="weather-loc-name" class="inline-block text-[9px] font-bold uppercase tracking-widest text-white bg-royal-gold/80 px-3 py-1 rounded-full mb-4 shadow-sm">Lokasi</span>
                 
                 <div class="flex flex-col items-center mb-2">
-                    <i id="weather-icon-main" data-lucide="cloud" class="w-16 h-16 text-royal-dark mb-2 drop-shadow-md animate-float"></i>
-                    <div class="font-serif-title text-6xl text-royal-dark tracking-tighter"><span id="weather-temp">--</span><span class="text-2xl align-top text-gray-400 pl-1">°</span></div>
-                    <p id="weather-desc" class="text-sm text-gray-500 font-bold mt-1">--</p>
+                    <i id="weather-icon-main" data-lucide="cloud" class="w-20 h-20 text-royal-dark mb-2 drop-shadow-xl"></i>
+                    <div class="font-serif-title text-7xl text-royal-dark tracking-tighter text-emboss"><span id="weather-temp">--</span><span class="text-3xl align-top text-gray-400 pl-1">°</span></div>
+                    <p id="weather-desc" class="text-sm text-royal-dark font-bold mt-2 uppercase tracking-wide bg-gray-200/50 px-2 py-1 rounded">--</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-3 gap-3 mb-6">
-                <div class="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <i data-lucide="thermometer" class="w-4 h-4 text-gray-400 mb-1"></i>
+                <div class="p-3 bg-white rounded-2xl shadow-sm border-b-4 border-gray-100 flex flex-col items-center">
+                    <i data-lucide="thermometer" class="w-4 h-4 text-royal-gold mb-1"></i>
                     <span id="weather-feels" class="text-xs font-bold text-royal-dark">--</span>
                     <span class="text-[8px] text-gray-400 uppercase mt-1">Terasa</span>
                 </div>
-                <div class="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <i data-lucide="wind" class="w-4 h-4 text-gray-400 mb-1"></i>
+                <div class="p-3 bg-white rounded-2xl shadow-sm border-b-4 border-gray-100 flex flex-col items-center">
+                    <i data-lucide="wind" class="w-4 h-4 text-royal-gold mb-1"></i>
                     <span id="weather-wind" class="text-xs font-bold text-royal-dark">--</span>
                     <span class="text-[8px] text-gray-400 uppercase mt-1">Angin</span>
                 </div>
-                <div class="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <i data-lucide="droplets" class="w-4 h-4 text-gray-400 mb-1"></i>
+                <div class="p-3 bg-white rounded-2xl shadow-sm border-b-4 border-gray-100 flex flex-col items-center">
+                    <i data-lucide="droplets" class="w-4 h-4 text-royal-gold mb-1"></i>
                     <span id="weather-rain" class="text-xs font-bold text-royal-dark">--</span>
                     <span class="text-[8px] text-gray-400 uppercase mt-1">Hujan</span>
                 </div>
             </div>
-            <button onclick="closeModal('weather-modal')" class="w-full py-4 bg-white border border-gray-200 shadow-lg rounded-2xl font-bold text-sm text-royal-dark tap-effect">Tutup</button>
+            <button onclick="closeModal('weather-modal')" class="w-full py-4 bg-white border-b-4 border-gray-200 shadow-sm rounded-2xl font-bold text-royal-dark tap-effect">Tutup</button>
         </div>
     </div>
 
-    <div id="currency-modal" class="modal fixed inset-0 z-50 bg-royal-dark/70 backdrop-blur-md">
-        <div class="modal-content bg-[#fcfaf7] p-8">
-            <div class="w-16 h-1.5 bg-gray-300/50 rounded-full mx-auto mb-8 shadow-inner"></div>
-            <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-8 text-center">Konversi Kurs</h3>
+    <div id="currency-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
+        <div class="modal-content bg-[#f8f5f2] p-8">
+            <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
+            <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-8 text-center text-emboss">Konversi Kurs</h3>
 
-            <div class="space-y-4">
-                <div class="bg-white p-4 rounded-2xl flex items-center gap-3 border border-gray-200 shadow-md">
-                    <input type="number" id="curr-amount" value="1" class="bg-transparent w-full font-bold text-royal-dark outline-none text-xl" placeholder="1">
-                    <div class="w-[1px] h-8 bg-gray-200"></div>
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-2xl flex items-center gap-3 border-b-4 border-gray-200 shadow-sm">
+                    <input type="number" id="curr-amount" value="1" class="bg-transparent w-full font-bold text-royal-dark outline-none text-2xl" placeholder="1">
+                    <div class="w-[2px] h-8 bg-gray-100"></div>
                     <select id="curr-from" class="bg-transparent font-bold text-gray-500 text-sm outline-none cursor-pointer pr-2">
                         <option value="USD">USD</option>
                         <option value="SAR">SAR</option>
@@ -354,193 +349,70 @@
                     </select>
                 </div>
 
-                <div class="flex justify-center text-gray-300"><i data-lucide="arrow-down" class="w-5 h-5 animate-bounce"></i></div>
+                <div class="flex justify-center text-gray-300"><div class="bg-white p-2 rounded-full shadow-md"><i data-lucide="arrow-down" class="w-5 h-5 text-royal-gold"></i></div></div>
 
-                <div class="bg-royal-dark p-6 rounded-[1.5rem] text-center text-white shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="bg-[#2a2a2a] p-6 rounded-[2rem] text-center text-white shadow-floating relative overflow-hidden border-t border-white/20">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
                     <span class="text-[10px] text-gray-400 uppercase tracking-widest block mb-2 relative z-10">IDR (Rupiah)</span>
-                    <div id="curr-result" class="font-mono text-3xl font-bold relative z-10">Rp 0</div>
+                    <div id="curr-result" class="font-mono text-3xl font-bold relative z-10 text-emboss">Rp 0</div>
                 </div>
             </div>
-            <button onclick="closeModal('currency-modal')" class="w-full py-4 bg-white border border-gray-200 shadow-lg rounded-2xl font-bold text-sm text-royal-dark tap-effect mt-8">Tutup</button>
+            <button onclick="closeModal('currency-modal')" class="w-full py-4 bg-white border-b-4 border-gray-200 shadow-sm rounded-2xl font-bold text-royal-dark tap-effect mt-8">Tutup</button>
         </div>
     </div>
 
     <script>
-        // --- DATABASE LOKASI LENGKAP (130+ Entitas) ---
+        // --- DATABASE LOKASI ---
         const cities = [
             {name: "Ambon, Maluku", lat: -3.6954, lng: 128.1814},
-            {name: "Ampana, Sulteng", lat: -0.8716, lng: 121.5723},
-            {name: "Amuntai, Kalsel", lat: -2.4177, lng: 115.2494},
-            {name: "Atambua, NTT", lat: -9.1064, lng: 124.8925},
-            {name: "Badung (Kuta), Bali", lat: -8.6846, lng: 115.1721},
             {name: "Balikpapan, Kaltim", lat: -1.2379, lng: 116.8529},
             {name: "Banda Aceh, Aceh", lat: 5.5483, lng: 95.3238},
             {name: "Bandar Lampung, Lampung", lat: -5.3971, lng: 105.2668},
             {name: "Bandung, Jabar", lat: -6.9175, lng: 107.6191},
-            {name: "Banggai, Sulteng", lat: -1.8488, lng: 123.5350},
-            {name: "Bangkinang, Riau", lat: 0.3392, lng: 101.0315},
-            {name: "Bangkalan, Jatim", lat: -7.0398, lng: 112.7423},
             {name: "Banjarmasin, Kalsel", lat: -3.3194, lng: 114.5908},
-            {name: "Banjarnegara, Jateng", lat: -7.3966, lng: 109.6964},
-            {name: "Banyuwangi, Jatim", lat: -8.2192, lng: 114.3691},
             {name: "Batam, Kepri", lat: 1.1455, lng: 104.0570},
-            {name: "Batang, Jateng", lat: -6.9112, lng: 109.7317},
-            {name: "Batu, Jatim", lat: -7.8671, lng: 112.5239},
-            {name: "Baturaja, Sumsel", lat: -4.1278, lng: 104.1683},
-            {name: "Bau-Bau, Sultra", lat: -5.4633, lng: 122.6015},
             {name: "Bekasi, Jabar", lat: -6.2383, lng: 106.9756},
             {name: "Bengkulu, Bengkulu", lat: -3.8004, lng: 102.2655},
-            {name: "Biak, Papua", lat: -1.1736, lng: 136.0820},
-            {name: "Bima, NTB", lat: -8.4623, lng: 118.7297},
-            {name: "Binjai, Sumut", lat: 3.6000, lng: 98.4853},
-            {name: "Bireuen, Aceh", lat: 5.2012, lng: 96.7011},
-            {name: "Bitung, Sulut", lat: 1.4404, lng: 125.1217},
-            {name: "Blitar, Jatim", lat: -8.0954, lng: 112.1610},
-            {name: "Blora, Jateng", lat: -6.9698, lng: 111.4168},
             {name: "Bogor, Jabar", lat: -6.5971, lng: 106.8060},
-            {name: "Bojonegoro, Jatim", lat: -7.1502, lng: 111.8818},
-            {name: "Bondowoso, Jatim", lat: -7.9135, lng: 113.8214},
-            {name: "Bontang, Kaltim", lat: 0.1370, lng: 117.4967},
-            {name: "Boyolali, Jateng", lat: -7.5367, lng: 110.5958},
-            {name: "Brebes, Jateng", lat: -6.8710, lng: 109.0435},
-            {name: "Bukittinggi, Sumbar", lat: -0.3039, lng: 100.3685},
-            {name: "Ciamis, Jabar", lat: -7.3263, lng: 108.3537},
-            {name: "Cianjur, Jabar", lat: -6.8206, lng: 107.1420},
-            {name: "Cilacap, Jateng", lat: -7.7279, lng: 109.0077},
-            {name: "Cilegon, Banten", lat: -6.0174, lng: 106.0538},
-            {name: "Cirebon, Jabar", lat: -6.7320, lng: 108.5523},
-            {name: "Demak, Jateng", lat: -6.8948, lng: 110.6385},
             {name: "Denpasar, Bali", lat: -8.6705, lng: 115.2126},
             {name: "Depok, Jabar", lat: -6.4025, lng: 106.7942},
-            {name: "Dumai, Riau", lat: 1.6666, lng: 101.4453},
-            {name: "Ende, NTT", lat: -8.8436, lng: 121.6624},
-            {name: "Garut, Jabar", lat: -7.2279, lng: 107.9087},
-            {name: "Gianyar, Bali", lat: -8.5435, lng: 115.3312},
             {name: "Gorontalo, Gorontalo", lat: 0.5435, lng: 123.0568},
-            {name: "Gresik, Jatim", lat: -7.1596, lng: 112.6568},
-            {name: "Indramayu, Jabar", lat: -6.3264, lng: 108.3199},
-            {name: "Jakarta Barat", lat: -6.1674, lng: 106.7637},
             {name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284},
-            {name: "Jakarta Selatan", lat: -6.2615, lng: 106.8106},
-            {name: "Jakarta Timur", lat: -6.2250, lng: 106.9004},
-            {name: "Jakarta Utara", lat: -6.1214, lng: 106.8827},
             {name: "Jambi, Jambi", lat: -1.6101, lng: 103.6131},
             {name: "Jayapura, Papua", lat: -2.5000, lng: 140.7167},
             {name: "Jember, Jatim", lat: -8.1845, lng: 113.6681},
-            {name: "Jepara, Jateng", lat: -6.5835, lng: 110.6705},
             {name: "Jogjakarta", lat: -7.7956, lng: 110.3695},
-            {name: "Karanganyar, Jateng", lat: -7.5960, lng: 110.9507},
-            {name: "Karawang, Jabar", lat: -6.3042, lng: 107.3079},
-            {name: "Kebumen, Jateng", lat: -7.6698, lng: 109.6517},
-            {name: "Kediri, Jatim", lat: -7.8485, lng: 112.0178},
-            {name: "Kendal, Jateng", lat: -6.9189, lng: 110.2016},
             {name: "Kendari, Sultra", lat: -3.9973, lng: 122.5123},
-            {name: "Klaten, Jateng", lat: -7.7051, lng: 110.6015},
-            {name: "Kotamobagu, Sulut", lat: 0.7308, lng: 124.3197},
-            {name: "Kudus, Jateng", lat: -6.8048, lng: 110.8405},
-            {name: "Kuningan, Jabar", lat: -6.9763, lng: 108.4831},
             {name: "Kupang, NTT", lat: -10.1772, lng: 123.6070},
-            {name: "Labuan Bajo, NTT", lat: -8.4908, lng: 119.8783},
-            {name: "Lamongan, Jatim", lat: -7.1197, lng: 112.4146},
-            {name: "Langsa, Aceh", lat: 4.4721, lng: 97.9737},
-            {name: "Lhokseumawe, Aceh", lat: 5.1802, lng: 97.1507},
-            {name: "Lubuklinggau, Sumsel", lat: -3.2952, lng: 102.8596},
-            {name: "Lumajang, Jatim", lat: -8.1332, lng: 113.2226},
-            {name: "Madiun, Jatim", lat: -7.6298, lng: 111.5177},
-            {name: "Magelang, Jateng", lat: -7.4797, lng: 110.2177},
-            {name: "Magetan, Jatim", lat: -7.6515, lng: 111.3323},
-            {name: "Majalengka, Jabar", lat: -6.8358, lng: 108.2272},
             {name: "Makassar, Sulsel", lat: -5.1477, lng: 119.4328},
             {name: "Malang, Jatim", lat: -7.9666, lng: 112.6326},
-            {name: "Mamuju, Sulbar", lat: -2.6687, lng: 118.8621},
             {name: "Manado, Sulut", lat: 1.4748, lng: 124.8421},
-            {name: "Manokwari, Papua Brt", lat: -0.8615, lng: 134.0620},
-            {name: "Maros, Sulsel", lat: -5.0028, lng: 119.5717},
             {name: "Mataram, NTB", lat: -8.5833, lng: 116.1167},
-            {name: "Maumere, NTT", lat: -8.6189, lng: 122.2111},
             {name: "Medan, Sumut", lat: 3.5952, lng: 98.6722},
-            {name: "Merauke, Papua", lat: -8.4991, lng: 140.4049},
-            {name: "Metro, Lampung", lat: -5.1136, lng: 105.3067},
-            {name: "Meulaboh, Aceh", lat: 4.1415, lng: 96.1293},
-            {name: "Mojokerto, Jatim", lat: -7.4725, lng: 112.4340},
-            {name: "Nabire, Papua", lat: -3.3667, lng: 135.4833},
-            {name: "Nganjuk, Jatim", lat: -7.6041, lng: 111.9009},
-            {name: "Ngawi, Jatim", lat: -7.4038, lng: 111.4447},
             {name: "Padang, Sumbar", lat: -0.9471, lng: 100.4172},
-            {name: "Padang Sidempuan, Sumut", lat: 1.3737, lng: 99.2674},
-            {name: "Pagar Alam, Sumsel", lat: -4.0157, lng: 103.2669},
             {name: "Palangkaraya, Kalteng", lat: -2.2106, lng: 113.9144},
             {name: "Palembang, Sumsel", lat: -2.9761, lng: 104.7754},
-            {name: "Palopo, Sulsel", lat: -2.9945, lng: 120.1970},
             {name: "Palu, Sulteng", lat: -0.9010, lng: 119.8398},
-            {name: "Pamekasan, Jatim", lat: -7.1643, lng: 113.4866},
-            {name: "Pandeglang, Banten", lat: -6.3084, lng: 106.1067},
-            {name: "Pangkal Pinang, Babel", lat: -2.1324, lng: 106.1093},
-            {name: "Parepare, Sulsel", lat: -4.0131, lng: 119.6243},
-            {name: "Pasuruan, Jatim", lat: -7.6453, lng: 112.9075},
-            {name: "Pati, Jateng", lat: -6.7550, lng: 111.0380},
-            {name: "Payakumbuh, Sumbar", lat: -0.2241, lng: 100.6323},
-            {name: "Pekalongan, Jateng", lat: -6.8898, lng: 109.6746},
             {name: "Pekanbaru, Riau", lat: 0.5071, lng: 101.4478},
-            {name: "Pemalang, Jateng", lat: -6.8920, lng: 109.3813},
-            {name: "Pematang Siantar, Sumut", lat: 2.9649, lng: 99.0621},
-            {name: "Ponorogo, Jatim", lat: -7.8675, lng: 111.4627},
             {name: "Pontianak, Kalbar", lat: -0.0263, lng: 109.3425},
-            {name: "Poso, Sulteng", lat: -1.3957, lng: 120.7524},
-            {name: "Prabumulih, Sumsel", lat: -3.4294, lng: 104.2295},
-            {name: "Probolinggo, Jatim", lat: -7.7543, lng: 113.2159},
-            {name: "Purbalingga, Jateng", lat: -7.3916, lng: 109.3622},
-            {name: "Purwakarta, Jabar", lat: -6.5561, lng: 107.4421},
-            {name: "Purwokerto, Jateng", lat: -7.4245, lng: 109.2302},
-            {name: "Sabang, Aceh", lat: 5.8950, lng: 95.3164},
-            {name: "Salatiga, Jateng", lat: -7.3305, lng: 110.5084},
             {name: "Samarinda, Kaltim", lat: -0.4949, lng: 117.1436},
-            {name: "Sampit, Kalteng", lat: -2.5361, lng: 112.9602},
             {name: "Semarang, Jateng", lat: -6.9667, lng: 110.4167},
             {name: "Serang, Banten", lat: -6.1104, lng: 106.1639},
-            {name: "Sibolga, Sumut", lat: 1.7397, lng: 98.7797},
-            {name: "Sidoarjo, Jatim", lat: -7.4478, lng: 112.7183},
-            {name: "Singkawang, Kalbar", lat: 0.9131, lng: 108.9877},
-            {name: "Situbondo, Jatim", lat: -7.7029, lng: 114.0044},
-            {name: "Solo (Surakarta)", lat: -7.5755, lng: 110.8243},
-            {name: "Sorong, Papua Brt", lat: -0.8767, lng: 131.2558},
-            {name: "Sragen, Jateng", lat: -7.4272, lng: 111.0223},
-            {name: "Subang, Jabar", lat: -6.5716, lng: 107.7587},
-            {name: "Sukabumi, Jabar", lat: -6.9277, lng: 106.9300},
-            {name: "Sumedang, Jabar", lat: -6.8586, lng: 107.9192},
-            {name: "Sumbawa Besar, NTB", lat: -8.5036, lng: 117.4299},
             {name: "Surabaya, Jatim", lat: -7.2575, lng: 112.7521},
-            {name: "Tabanan, Bali", lat: -8.5528, lng: 115.1270},
+            {name: "Solo (Surakarta)", lat: -7.5755, lng: 110.8243},
             {name: "Tangerang, Banten", lat: -6.1732, lng: 106.6300},
-            {name: "Tangerang Selatan", lat: -6.2886, lng: 106.7179},
-            {name: "Tanjung Balai, Sumut", lat: 2.9652, lng: 99.8003},
             {name: "Tanjung Pinang, Kepri", lat: 0.9167, lng: 104.4500},
-            {name: "Tanjung Selor, Kaltara", lat: 2.8422, lng: 117.3621},
-            {name: "Tarakan, Kaltara", lat: 3.3274, lng: 117.5746},
             {name: "Tasikmalaya, Jabar", lat: -7.3274, lng: 108.2207},
-            {name: "Tebing Tinggi, Sumut", lat: 3.3284, lng: 99.1625},
-            {name: "Tegal, Jateng", lat: -6.8694, lng: 109.1402},
-            {name: "Ternate, Malut", lat: 0.7893, lng: 127.3630},
             {name: "Trenggalek, Jatim", lat: -8.0500, lng: 111.7167},
-            {name: "Tuban, Jatim", lat: -6.8976, lng: 112.0638},
-            {name: "Tulungagung, Jatim", lat: -8.0658, lng: 111.9016},
-            {name: "Waikabubak, NTT", lat: -9.6433, lng: 119.4124},
-            {name: "Wamena, Papua", lat: -4.0970, lng: 138.9388},
-            {name: "Wonogiri, Jateng", lat: -7.8177, lng: 110.9262},
-            {name: "Wonosobo, Jateng", lat: -7.3632, lng: 109.8998},
         ];
 
-        // --- DATABASE QUOTES ---
+        // --- QUOTES ---
         const quotesDb = [
             { arab: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ", arti: "\"Dan jadikanlah sabar dan shalat sebagai penolongmu.\"", ref: "QS. Al-Baqarah: 45" },
             { arab: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", arti: "\"Ingatlah, hanya dengan mengingati Allah-lah hati menjadi tenteram.\"", ref: "QS. Ar-Ra'd: 28" },
             { arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", arti: "\"Karena sesungguhnya sesudah kesulitan itu ada kemudahan.\"", ref: "QS. Al-Insyirah: 5" },
             { arab: "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ", arti: "\"Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar.\"", ref: "QS. Al-Ankabut: 45" },
-            { arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", arti: "\"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.\"", ref: "QS. Al-Baqarah: 286" },
-            { arab: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ", arti: "\"Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.\"", ref: "QS. Ad-Dhuha: 5" },
-            { arab: "فَاصْبِرْ صَبْرًا جَمِيلًا", arti: "\"Maka bersabarlah kamu dengan sabar yang baik.\"", ref: "QS. Al-Ma'arij: 5" },
-            { arab: "رَبِّ اشْرَحْ لِي صَدْرِي", arti: "\"Ya Tuhanku, lapangkanlah untukku dadaku.\"", ref: "QS. Taha: 25" }
+            { arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", arti: "\"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.\"", ref: "QS. Al-Baqarah: 286" }
         ];
 
         const els = {
@@ -571,7 +443,8 @@
             sList: document.getElementById('search-result-list')
         };
 
-        let currentLoc = cities.find(c => c.name.includes("Trenggalek")) || cities.find(c => c.name.includes("Jakarta Pusat")) || cities[0];
+        // Default Location Logic
+        let currentLoc = cities.find(c => c.name.includes("Trenggalek")) || cities.find(c => c.name.includes("Jakarta")) || cities[0];
         let prayerTimes = null;
 
         function init() {
@@ -659,18 +532,18 @@
             
             els.nextName.innerText = next.name;
 
-            // Render list without animation delays
+            // FIX: Using standardized HTML structure to prevent overlapping
             pList.forEach((p) => {
                 const active = (next.name === p.name);
                 const isSun = p.name === 'Terbit';
                 
                 listHTML += `
-                <div class="flex justify-between items-center px-5 py-4 rounded-2xl transition-all ${active ? 'prayer-active-3d' : 'prayer-inactive'} ${isSun ? 'opacity-60 bg-transparent border-none' : 'mb-2'}">
-                    <div class="flex items-center gap-3">
-                        ${active ? '<div class="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>' : (isSun ? '<i data-lucide="sun" class="w-3.5 h-3.5 text-gray-400"></i>' : '<div class="w-1.5 h-1.5 rounded-full bg-gray-300 shadow-inner"></div>')}
+                <div class="flex justify-between items-center px-6 py-4 rounded-2xl transition-all duration-300 ${active ? 'prayer-active-3d' : 'prayer-inactive'} ${isSun ? 'opacity-50' : ''}">
+                    <div class="flex items-center gap-4">
+                        ${active ? '<div class="w-3 h-3 rounded-full bg-royal-gold shadow-[0_0_15px_#C5A059] border border-white"></div>' : (isSun ? '<i data-lucide="sun" class="w-4 h-4 text-gray-400"></i>' : '<div class="w-2 h-2 rounded-full bg-gray-300 shadow-inner"></div>')}
                         <span class="text-sm font-bold ${active ? 'text-white' : 'text-gray-600'} tracking-wide">${p.name}</span>
                     </div>
-                    <span class="font-mono text-base font-bold ${active ? 'text-white' : 'text-royal-dark'}">${p.time}</span>
+                    <span class="font-mono text-lg font-bold ${active ? 'text-white text-emboss' : 'text-royal-dark'}">${p.time}</span>
                 </div>`;
             });
             els.list.innerHTML = listHTML;
