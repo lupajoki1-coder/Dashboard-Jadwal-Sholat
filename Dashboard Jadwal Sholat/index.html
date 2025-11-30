@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Prayer Time Hyper-3D Fix</title>
+    <title>Prayer Time Hyper-3D Complete</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -56,28 +56,23 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* BACKGROUND */
         .bg-wallpaper {
             background-image: url('https://images.unsplash.com/photo-1519817914152-22d216bb9170?q=80&w=1000&auto=format&fit=crop'); 
             background-size: cover;
             background-position: center;
         }
 
-        /* 3D BEVELED GLASS CARD */
         .glass-bevel {
             background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            
             border-top: 1px solid rgba(255, 255, 255, 0.9);
             border-left: 1px solid rgba(255, 255, 255, 0.9);
             border-right: 1px solid rgba(0, 0, 0, 0.1);
             border-bottom: 3px solid rgba(0, 0, 0, 0.15); 
-            
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        /* FLOATING DOCK SHELF */
         .dock-shelf {
             background: rgba(30, 30, 30, 0.9);
             backdrop-filter: blur(20px);
@@ -86,7 +81,6 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
 
-        /* UTILS */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -98,14 +92,12 @@
             transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ANIMATIONS */
         @keyframes modalUp { from { transform: translateY(110%); } to { transform: translateY(0); } }
         @keyframes shine { 0% { left: -100%; } 100% { left: 200%; } }
         @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(197, 160, 89, 0.3); } 50% { box-shadow: 0 0 25px rgba(197, 160, 89, 0.6); } }
 
         .animate-enter { animation: modalUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
         
-        /* ACTIVE LIST ITEM 3D TILE */
         .prayer-active-3d {
             background: linear-gradient(145deg, #2d2a26, #1a1816);
             color: #ffffff;
@@ -125,7 +117,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         
-        /* MODAL */
         .modal { 
             opacity: 0; visibility: hidden; transition: opacity 0.2s ease; 
             display: flex; align-items: flex-end; justify-content: center;
@@ -234,7 +225,6 @@
     <div id="qiblat-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
         <div class="modal-content bg-[#f8f5f2] p-8 relative text-center">
             <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
-            
             <div class="relative w-64 h-64 mx-auto mb-8 bg-white rounded-full shadow-pop-out flex items-center justify-center border-8 border-[#f0f0f0]">
                 <div class="absolute inset-0 rounded-full shadow-inner-depth"></div>
                 <div class="absolute top-4 left-1/2 -translate-x-1/2 text-sm font-bold text-gray-300">U</div>
@@ -246,7 +236,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="text-5xl font-mono font-bold text-royal-dark mb-2 tracking-tighter text-emboss" id="qiblat-degree">--°</div>
             <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-8">Arah Kiblat</p>
             <button onclick="closeModal('qiblat-modal')" class="w-full py-4 bg-white border-b-4 border-gray-200 shadow-sm rounded-2xl font-bold text-royal-dark tap-effect">Tutup</button>
@@ -257,11 +246,9 @@
         <div class="modal-content bg-[#f8f5f2] p-6 h-[75vh] flex flex-col">
             <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 shadow-inner"></div>
             <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-6 text-center text-emboss">Cari Jadwal</h3>
-            
             <div class="bg-white p-3 rounded-2xl shadow-inner-depth mb-6 shrink-0">
                 <input type="date" id="search-date-input" class="w-full bg-transparent px-4 py-2 text-royal-dark font-bold focus:outline-none text-lg">
             </div>
-            
             <div id="search-result-list" class="flex-1 overflow-y-auto no-scrollbar space-y-3 pb-4 px-1">
                 <div class="flex flex-col items-center justify-center h-full text-gray-300">
                     <i data-lucide="calendar" class="w-12 h-12 mb-3 opacity-20"></i>
@@ -275,7 +262,6 @@
     <div id="quote-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
         <div class="modal-content bg-[#f8f5f2] p-8 text-center">
             <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
-            
             <div class="bg-white rounded-[2rem] p-8 shadow-pop-out relative mb-8">
                 <i data-lucide="quote" class="w-10 h-10 text-royal-gold/20 absolute top-4 left-4 rotate-180"></i>
                 <div class="py-2">
@@ -285,7 +271,6 @@
                 </div>
                 <p id="quote-ref" class="text-[10px] font-bold text-royal-gold uppercase tracking-wide mt-4 border border-royal-gold/20 inline-block px-2 py-1 rounded">...</p>
             </div>
-
             <div class="flex gap-4">
                 <button onclick="renderQuote()" class="flex-1 py-4 bg-royal-dark text-white rounded-2xl border-b-4 border-black shadow-lg font-bold text-xs tap-effect flex justify-center items-center gap-2">
                     <i data-lucide="refresh-cw" class="w-4 h-4"></i> Acak
@@ -298,17 +283,14 @@
     <div id="weather-modal" class="modal fixed inset-0 z-50 bg-royal-dark/80 backdrop-blur-md">
         <div class="modal-content bg-[#f8f5f2] p-6 text-center">
             <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 shadow-inner"></div>
-            
             <div class="bg-gradient-to-br from-white to-gray-50 rounded-[2.5rem] p-6 shadow-pop-out mb-6 relative overflow-hidden border border-white">
                 <span id="weather-loc-name" class="inline-block text-[9px] font-bold uppercase tracking-widest text-white bg-royal-gold/80 px-3 py-1 rounded-full mb-4 shadow-sm">Lokasi</span>
-                
                 <div class="flex flex-col items-center mb-2">
                     <i id="weather-icon-main" data-lucide="cloud" class="w-20 h-20 text-royal-dark mb-2 drop-shadow-xl"></i>
                     <div class="font-serif-title text-7xl text-royal-dark tracking-tighter text-emboss"><span id="weather-temp">--</span><span class="text-3xl align-top text-gray-400 pl-1">°</span></div>
                     <p id="weather-desc" class="text-sm text-royal-dark font-bold mt-2 uppercase tracking-wide bg-gray-200/50 px-2 py-1 rounded">--</p>
                 </div>
             </div>
-
             <div class="grid grid-cols-3 gap-3 mb-6">
                 <div class="p-3 bg-white rounded-2xl shadow-sm border-b-4 border-gray-100 flex flex-col items-center">
                     <i data-lucide="thermometer" class="w-4 h-4 text-royal-gold mb-1"></i>
@@ -334,7 +316,6 @@
         <div class="modal-content bg-[#f8f5f2] p-8">
             <div class="w-16 h-1.5 bg-gray-300 rounded-full mx-auto mb-8 shadow-inner"></div>
             <h3 class="font-serif-title text-2xl text-royal-dark font-bold mb-8 text-center text-emboss">Konversi Kurs</h3>
-
             <div class="space-y-6">
                 <div class="bg-white p-4 rounded-2xl flex items-center gap-3 border-b-4 border-gray-200 shadow-sm">
                     <input type="number" id="curr-amount" value="1" class="bg-transparent w-full font-bold text-royal-dark outline-none text-2xl" placeholder="1">
@@ -348,9 +329,7 @@
                         <option value="JPY">JPY</option>
                     </select>
                 </div>
-
                 <div class="flex justify-center text-gray-300"><div class="bg-white p-2 rounded-full shadow-md"><i data-lucide="arrow-down" class="w-5 h-5 text-royal-gold"></i></div></div>
-
                 <div class="bg-[#2a2a2a] p-6 rounded-[2rem] text-center text-white shadow-floating relative overflow-hidden border-t border-white/20">
                     <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
                     <span class="text-[10px] text-gray-400 uppercase tracking-widest block mb-2 relative z-10">IDR (Rupiah)</span>
@@ -362,48 +341,451 @@
     </div>
 
     <script>
-        // --- DATABASE LOKASI ---
+        // --- DATABASE LOKASI MASIF (DIPERBARUI) ---
         const cities = [
+            // SUMATERA
+            {name: "Aceh Barat (Meulaboh)", lat: 4.1415, lng: 96.1293},
+            {name: "Aceh Besar (Jantho)", lat: 5.2833, lng: 95.6167},
+            {name: "Aceh Jaya (Calang)", lat: 4.6333, lng: 95.5833},
+            {name: "Aceh Selatan (Tapaktuan)", lat: 3.2500, lng: 97.1833},
+            {name: "Aceh Singkil", lat: 2.3333, lng: 97.8333},
+            {name: "Aceh Tamiang (Karang Baru)", lat: 4.4167, lng: 98.0500},
+            {name: "Aceh Tengah (Takengon)", lat: 4.6333, lng: 96.8333},
+            {name: "Aceh Tenggara (Kutacane)", lat: 3.4833, lng: 97.8000},
+            {name: "Aceh Timur (Idi Rayeuk)", lat: 4.9667, lng: 97.7667},
+            {name: "Aceh Utara (Lhoksukon)", lat: 5.0500, lng: 97.3167},
+            {name: "Agam (Lubuk Basung)", lat: -0.3167, lng: 100.0333},
+            {name: "Alor (Kalabahi)", lat: -8.2167, lng: 124.5167},
             {name: "Ambon, Maluku", lat: -3.6954, lng: 128.1814},
+            {name: "Asahan (Kisaran)", lat: 2.9833, lng: 99.6167},
+            {name: "Asmat", lat: -6.5000, lng: 138.5000},
+            
+            // BALI & NUSA TENGGARA
+            {name: "Badung (Mangupura)", lat: -8.5833, lng: 115.1667},
             {name: "Balikpapan, Kaltim", lat: -1.2379, lng: 116.8529},
             {name: "Banda Aceh, Aceh", lat: 5.5483, lng: 95.3238},
             {name: "Bandar Lampung, Lampung", lat: -5.3971, lng: 105.2668},
-            {name: "Bandung, Jabar", lat: -6.9175, lng: 107.6191},
+            
+            // JAWA BARAT
+            {name: "Bandung (Kab/Soreang)", lat: -7.0333, lng: 107.5333},
+            {name: "Bandung (Kota)", lat: -6.9175, lng: 107.6191},
+            {name: "Bandung Barat (Ngamprah)", lat: -6.8333, lng: 107.5000},
+            {name: "Banggai (Luwuk)", lat: -0.9333, lng: 122.7833},
+            {name: "Bangka (Sungai Liat)", lat: -1.8833, lng: 106.1167},
+            {name: "Bangkalan, Jatim", lat: -7.0398, lng: 112.7423},
+            {name: "Bangli, Bali", lat: -8.4500, lng: 115.3500},
+            {name: "Banjar (Kota), Jabar", lat: -7.3667, lng: 108.5333},
+            {name: "Banjarbaru, Kalsel", lat: -3.4167, lng: 114.8333},
             {name: "Banjarmasin, Kalsel", lat: -3.3194, lng: 114.5908},
+            {name: "Banjarnegara, Jateng", lat: -7.3966, lng: 109.6964},
+            {name: "Bantaeng, Sulsel", lat: -5.5500, lng: 119.9500},
+            {name: "Bantul, DIY", lat: -7.8833, lng: 110.3333},
+            {name: "Banyuasin, Sumsel", lat: -2.8833, lng: 104.3833},
+            {name: "Banyumas (Purwokerto)", lat: -7.4245, lng: 109.2302},
+            {name: "Banyuwangi, Jatim", lat: -8.2192, lng: 114.3691},
+            {name: "Barito Kuala (Marabahan)", lat: -3.0000, lng: 114.6667},
+            {name: "Barru, Sulsel", lat: -4.4167, lng: 119.6167},
             {name: "Batam, Kepri", lat: 1.1455, lng: 104.0570},
-            {name: "Bekasi, Jabar", lat: -6.2383, lng: 106.9756},
-            {name: "Bengkulu, Bengkulu", lat: -3.8004, lng: 102.2655},
-            {name: "Bogor, Jabar", lat: -6.5971, lng: 106.8060},
+            {name: "Batang, Jateng", lat: -6.9112, lng: 109.7317},
+            {name: "Batanghari (Muara Bulian)", lat: -1.7500, lng: 103.2500},
+            {name: "Batu (Kota), Jatim", lat: -7.8671, lng: 112.5239},
+            {name: "Batubara (Limapuluh)", lat: 3.1667, lng: 99.5000},
+            {name: "Bau-Bau, Sultra", lat: -5.4633, lng: 122.6015},
+            {name: "Bekasi (Kab/Cikarang)", lat: -6.3500, lng: 107.1667},
+            {name: "Bekasi (Kota), Jabar", lat: -6.2383, lng: 106.9756},
+            {name: "Belitung (Tanjung Pandan)", lat: -2.7500, lng: 107.6333},
+            {name: "Belu (Atambua)", lat: -9.1000, lng: 124.8833},
+            {name: "Bener Meriah", lat: 4.7500, lng: 96.9167},
+            {name: "Bengkalis, Riau", lat: 1.4833, lng: 102.1000},
+            {name: "Bengkulu (Kota)", lat: -3.8004, lng: 102.2655},
+            {name: "Biak Numfor, Papua", lat: -1.1736, lng: 136.0820},
+            {name: "Bima (Kab/Woha)", lat: -8.5167, lng: 118.6833},
+            {name: "Bima (Kota), NTB", lat: -8.4623, lng: 118.7297},
+            {name: "Binjai, Sumut", lat: 3.6000, lng: 98.4853},
+            {name: "Bintan, Kepri", lat: 1.1500, lng: 104.5167},
+            {name: "Bireuen, Aceh", lat: 5.2012, lng: 96.7011},
+            {name: "Bitung, Sulut", lat: 1.4404, lng: 125.1217},
+            {name: "Blitar (Kab), Jatim", lat: -8.1333, lng: 112.2500},
+            {name: "Blitar (Kota), Jatim", lat: -8.0954, lng: 112.1610},
+            {name: "Blora, Jateng", lat: -6.9698, lng: 111.4168},
+            {name: "Bogor (Kab/Cibinong)", lat: -6.4833, lng: 106.8500},
+            {name: "Bogor (Kota), Jabar", lat: -6.5971, lng: 106.8060},
+            {name: "Bojonegoro, Jatim", lat: -7.1502, lng: 111.8818},
+            {name: "Bolaang Mongondow", lat: 0.7167, lng: 124.0333},
+            {name: "Bondowoso, Jatim", lat: -7.9135, lng: 113.8214},
+            {name: "Bone, Sulsel", lat: -4.5333, lng: 120.3167},
+            {name: "Bontang, Kaltim", lat: 0.1370, lng: 117.4967},
+            {name: "Boyolali, Jateng", lat: -7.5367, lng: 110.5958},
+            {name: "Brebes, Jateng", lat: -6.8710, lng: 109.0435},
+            {name: "Bukittinggi, Sumbar", lat: -0.3039, lng: 100.3685},
+            {name: "Buleleng (Singaraja), Bali", lat: -8.1167, lng: 115.0833},
+            {name: "Bulukumba, Sulsel", lat: -5.5667, lng: 120.1833},
+            {name: "Buol, Sulteng", lat: 1.0000, lng: 121.3333},
+            {name: "Buton, Sultra", lat: -5.1333, lng: 122.9167},
+            {name: "Ciamis, Jabar", lat: -7.3263, lng: 108.3537},
+            {name: "Cianjur, Jabar", lat: -6.8206, lng: 107.1420},
+            {name: "Cilacap, Jateng", lat: -7.7279, lng: 109.0077},
+            {name: "Cilegon, Banten", lat: -6.0174, lng: 106.0538},
+            {name: "Cimahi, Jabar", lat: -6.8906, lng: 107.5456},
+            {name: "Cirebon (Kab/Sumber)", lat: -6.7500, lng: 108.4833},
+            {name: "Cirebon (Kota), Jabar", lat: -6.7320, lng: 108.5523},
+            {name: "Dairi (Sidikalang)", lat: 2.7500, lng: 98.3333},
+            {name: "Deli Serdang (Lubuk Pakam)", lat: 3.5500, lng: 98.8667},
+            {name: "Demak, Jateng", lat: -6.8948, lng: 110.6385},
             {name: "Denpasar, Bali", lat: -8.6705, lng: 115.2126},
             {name: "Depok, Jabar", lat: -6.4025, lng: 106.7942},
-            {name: "Gorontalo, Gorontalo", lat: 0.5435, lng: 123.0568},
+            {name: "Dharmasraya", lat: -0.9500, lng: 101.6333},
+            {name: "Dompu, NTB", lat: -8.5333, lng: 118.4667},
+            {name: "Donggala, Sulteng", lat: -0.5833, lng: 119.7333},
+            {name: "Dumai, Riau", lat: 1.6666, lng: 101.4453},
+            {name: "Empat Lawang", lat: -3.6667, lng: 102.9500},
+            {name: "Ende, NTT", lat: -8.8436, lng: 121.6624},
+            {name: "Enrekang, Sulsel", lat: -3.5500, lng: 119.7833},
+            {name: "Fakfak, Papua Brt", lat: -2.9167, lng: 132.3000},
+            {name: "Flores Timur (Larantuka)", lat: -8.3333, lng: 123.0000},
+            {name: "Garut, Jabar", lat: -7.2279, lng: 107.9087},
+            {name: "Gayo Lues (Blangkejeren)", lat: 3.9667, lng: 97.3500},
+            {name: "Gianyar, Bali", lat: -8.5435, lng: 115.3312},
+            {name: "Gorontalo (Kota)", lat: 0.5435, lng: 123.0568},
+            {name: "Gowa (Sungguminasa)", lat: -5.2167, lng: 119.4667},
+            {name: "Gresik, Jatim", lat: -7.1596, lng: 112.6568},
+            {name: "Grobogan (Purwodadi)", lat: -7.0833, lng: 110.9167},
+            {name: "Gunung Kidul (Wonosari)", lat: -7.9667, lng: 110.6000},
+            {name: "Gunung Mas (Kuala Kurun)", lat: -1.1667, lng: 113.8667},
+            {name: "Gunung Sitoli, Sumut", lat: 1.2833, lng: 97.6167},
+            {name: "Halmahera Barat", lat: 1.0500, lng: 127.4667},
+            {name: "Halmahera Selatan", lat: -0.5833, lng: 127.5000},
+            {name: "Halmahera Tengah", lat: 0.3500, lng: 128.2500},
+            {name: "Halmahera Timur", lat: 1.2500, lng: 128.2833},
+            {name: "Halmahera Utara (Tobelo)", lat: 1.7333, lng: 128.0000},
+            {name: "Humbang Hasundutan", lat: 2.2500, lng: 98.7500},
+            {name: "Indragiri Hilir (Tembilahan)", lat: -0.3167, lng: 103.1667},
+            {name: "Indragiri Hulu (Rengat)", lat: -0.3667, lng: 102.5500},
+            {name: "Indramayu, Jabar", lat: -6.3264, lng: 108.3199},
+            // JAKARTA (DKI)
+            {name: "Jakarta Barat", lat: -6.1674, lng: 106.7637},
             {name: "Jakarta Pusat", lat: -6.1805, lng: 106.8284},
-            {name: "Jambi, Jambi", lat: -1.6101, lng: 103.6131},
-            {name: "Jayapura, Papua", lat: -2.5000, lng: 140.7167},
+            {name: "Jakarta Selatan", lat: -6.2615, lng: 106.8106},
+            {name: "Jakarta Timur", lat: -6.2250, lng: 106.9004},
+            {name: "Jakarta Utara", lat: -6.1214, lng: 106.8827},
+            {name: "Jambi (Kota)", lat: -1.6101, lng: 103.6131},
+            {name: "Jayapura (Kab/Sentani)", lat: -2.5667, lng: 140.5000},
+            {name: "Jayapura (Kota), Papua", lat: -2.5000, lng: 140.7167},
+            {name: "Jayawijaya (Wamena)", lat: -4.0970, lng: 138.9388},
             {name: "Jember, Jatim", lat: -8.1845, lng: 113.6681},
-            {name: "Jogjakarta", lat: -7.7956, lng: 110.3695},
+            {name: "Jembrana (Negara), Bali", lat: -8.3500, lng: 114.6333},
+            {name: "Jeneponto, Sulsel", lat: -5.7000, lng: 119.7500},
+            {name: "Jepara, Jateng", lat: -6.5835, lng: 110.6705},
+            {name: "Jombang, Jatim", lat: -7.5467, lng: 112.2333},
+            {name: "Kaimana, Papua Brt", lat: -3.6500, lng: 133.7667},
+            {name: "Kampar, Riau", lat: 0.3333, lng: 101.0333},
+            {name: "Kapuas, Kalteng", lat: -3.0000, lng: 114.3833},
+            {name: "Kapuas Hulu (Putussibau)", lat: 0.8333, lng: 112.9333},
+            {name: "Karanganyar, Jateng", lat: -7.5960, lng: 110.9507},
+            {name: "Karangasem (Amlapura)", lat: -8.4000, lng: 115.5667},
+            {name: "Karawang, Jabar", lat: -6.3042, lng: 107.3079},
+            {name: "Karimun (Tanjung Balai)", lat: 1.0500, lng: 103.4333},
+            {name: "Karo (Kabanjahe)", lat: 3.1000, lng: 98.5000},
+            {name: "Kebumen, Jateng", lat: -7.6698, lng: 109.6517},
+            {name: "Kediri (Kab), Jatim", lat: -7.8167, lng: 112.1667},
+            {name: "Kediri (Kota), Jatim", lat: -7.8485, lng: 112.0178},
+            {name: "Kendal, Jateng", lat: -6.9189, lng: 110.2016},
             {name: "Kendari, Sultra", lat: -3.9973, lng: 122.5123},
-            {name: "Kupang, NTT", lat: -10.1772, lng: 123.6070},
+            {name: "Kepahiang, Bengkulu", lat: -3.6500, lng: 102.5667},
+            {name: "Kepulauan Aru (Dobo)", lat: -5.7667, lng: 134.2167},
+            {name: "Kepulauan Meranti", lat: 1.0000, lng: 102.7000},
+            {name: "Kepulauan Sangihe", lat: 3.5000, lng: 125.5000},
+            {name: "Kepulauan Selayar", lat: -6.1167, lng: 120.4500},
+            {name: "Kepulauan Seribu", lat: -5.6000, lng: 106.5500},
+            {name: "Kepulauan Sula", lat: -2.0000, lng: 126.0000},
+            {name: "Kepulauan Tanimbar", lat: -7.8000, lng: 131.3000},
+            {name: "Kerinci, Jambi", lat: -2.0833, lng: 101.4667},
+            {name: "Ketapang, Kalbar", lat: -1.8500, lng: 109.9667},
+            {name: "Klaten, Jateng", lat: -7.7051, lng: 110.6015},
+            {name: "Klungkung, Bali", lat: -8.5333, lng: 115.4000},
+            {name: "Kolaka, Sultra", lat: -4.0500, lng: 121.6000},
+            {name: "Konawe", lat: -3.8333, lng: 122.0833},
+            {name: "Kotamobagu, Sulut", lat: 0.7308, lng: 124.3197},
+            {name: "Kotawaringin Barat (Pangkalan Bun)", lat: -2.4167, lng: 111.7500},
+            {name: "Kotawaringin Timur (Sampit)", lat: -2.5333, lng: 112.9500},
+            {name: "Kuantan Singingi (Teluk Kuantan)", lat: -0.5333, lng: 101.5500},
+            {name: "Kudus, Jateng", lat: -6.8048, lng: 110.8405},
+            {name: "Kulon Progo (Wates)", lat: -7.8667, lng: 110.1500},
+            {name: "Kuningan, Jabar", lat: -6.9763, lng: 108.4831},
+            {name: "Kupang (Kab/Oelamasi)", lat: -10.0000, lng: 123.8333},
+            {name: "Kupang (Kota), NTT", lat: -10.1772, lng: 123.6070},
+            {name: "Kutai Barat", lat: -0.6000, lng: 115.7000},
+            {name: "Kutai Kartanegara (Tenggarong)", lat: -0.4167, lng: 116.9833},
+            {name: "Kutai Timur (Sangatta)", lat: 0.3333, lng: 117.5833},
+            {name: "Labuhanbatu (Rantau Prapat)", lat: 2.1000, lng: 99.8333},
+            {name: "Labuhanbatu Selatan", lat: 1.9167, lng: 100.1000},
+            {name: "Labuhanbatu Utara", lat: 2.4500, lng: 99.6667},
+            {name: "Labuan Bajo (Manggarai Barat)", lat: -8.4908, lng: 119.8783},
+            {name: "Lahat, Sumsel", lat: -3.8000, lng: 103.5333},
+            {name: "Lamandau", lat: -1.8333, lng: 111.2667},
+            {name: "Lamongan, Jatim", lat: -7.1197, lng: 112.4146},
+            {name: "Lampung Barat (Liwa)", lat: -5.0333, lng: 104.0667},
+            {name: "Lampung Selatan (Kalianda)", lat: -5.7167, lng: 105.6167},
+            {name: "Lampung Tengah (Gunung Sugih)", lat: -4.9500, lng: 105.2167},
+            {name: "Lampung Timur (Sukadana)", lat: -5.1333, lng: 105.6833},
+            {name: "Lampung Utara (Kotabumi)", lat: -4.8167, lng: 104.8833},
+            {name: "Landak (Ngabang)", lat: 0.4333, lng: 109.9500},
+            {name: "Langkat (Stabat)", lat: 3.7500, lng: 98.4167},
+            {name: "Langsa, Aceh", lat: 4.4721, lng: 97.9737},
+            {name: "Lhokseumawe, Aceh", lat: 5.1802, lng: 97.1507},
+            {name: "Lima Puluh Kota (Sarilamak)", lat: -0.0667, lng: 100.5667},
+            {name: "Lingga (Daik)", lat: -0.2333, lng: 104.6167},
+            {name: "Lombok Barat (Gerung)", lat: -8.6833, lng: 116.1167},
+            {name: "Lombok Tengah (Praya)", lat: -8.7000, lng: 116.2833},
+            {name: "Lombok Timur (Selong)", lat: -8.6500, lng: 116.5333},
+            {name: "Lombok Utara", lat: -8.3500, lng: 116.1500},
+            {name: "Lubuklinggau, Sumsel", lat: -3.2952, lng: 102.8596},
+            {name: "Lumajang, Jatim", lat: -8.1332, lng: 113.2226},
+            {name: "Luwu (Belopa)", lat: -3.3500, lng: 120.3500},
+            {name: "Luwu Timur", lat: -2.6000, lng: 121.1667},
+            {name: "Luwu Utara", lat: -2.6000, lng: 120.2500},
+            {name: "Madiun (Kab), Jatim", lat: -7.5833, lng: 111.6667},
+            {name: "Madiun (Kota), Jatim", lat: -7.6298, lng: 111.5177},
+            {name: "Magelang (Kab), Jateng", lat: -7.4333, lng: 110.1500},
+            {name: "Magelang (Kota), Jateng", lat: -7.4797, lng: 110.2177},
+            {name: "Magetan, Jatim", lat: -7.6515, lng: 111.3323},
+            {name: "Majalengka, Jabar", lat: -6.8358, lng: 108.2272},
+            {name: "Majene, Sulbar", lat: -3.5167, lng: 118.9667},
             {name: "Makassar, Sulsel", lat: -5.1477, lng: 119.4328},
-            {name: "Malang, Jatim", lat: -7.9666, lng: 112.6326},
+            {name: "Malaka", lat: -9.5667, lng: 124.9000},
+            {name: "Malang (Kab), Jatim", lat: -8.1667, lng: 112.5667},
+            {name: "Malang (Kota), Jatim", lat: -7.9666, lng: 112.6326},
+            {name: "Malinau, Kaltara", lat: 3.5833, lng: 116.6333},
+            {name: "Maluku Barat Daya", lat: -8.0000, lng: 127.8333},
+            {name: "Maluku Tengah (Masohi)", lat: -3.2833, lng: 128.9667},
+            {name: "Maluku Tenggara", lat: -5.7500, lng: 132.7333},
+            {name: "Mamasa", lat: -2.9167, lng: 119.3667},
+            {name: "Mamuju, Sulbar", lat: -2.6687, lng: 118.8621},
             {name: "Manado, Sulut", lat: 1.4748, lng: 124.8421},
+            {name: "Mandailing Natal (Penyabungan)", lat: 0.8667, lng: 99.5500},
+            {name: "Manggarai (Ruteng)", lat: -8.6000, lng: 120.4667},
+            {name: "Manggarai Barat (Labuan Bajo)", lat: -8.4908, lng: 119.8783},
+            {name: "Manggarai Timur", lat: -8.6000, lng: 120.5500},
+            {name: "Manokwari, Papua Brt", lat: -0.8615, lng: 134.0620},
+            {name: "Maros, Sulsel", lat: -5.0028, lng: 119.5717},
             {name: "Mataram, NTB", lat: -8.5833, lng: 116.1167},
+            {name: "Maumere (Sikka)", lat: -8.6189, lng: 122.2111},
             {name: "Medan, Sumut", lat: 3.5952, lng: 98.6722},
+            {name: "Melawi", lat: -0.3333, lng: 111.7000},
+            {name: "Merangin (Bangko)", lat: -2.2000, lng: 102.2667},
+            {name: "Merauke, Papua", lat: -8.4991, lng: 140.4049},
+            {name: "Mesuji, Lampung", lat: -3.9667, lng: 105.4167},
+            {name: "Metro, Lampung", lat: -5.1136, lng: 105.3067},
+            {name: "Mimika (Timika)", lat: -4.5500, lng: 136.8833},
+            {name: "Minahasa (Tondano)", lat: 1.3000, lng: 124.9167},
+            {name: "Minahasa Selatan", lat: 1.1000, lng: 124.6000},
+            {name: "Minahasa Utara", lat: 1.4167, lng: 124.9667},
+            {name: "Mojokerto (Kab), Jatim", lat: -7.5500, lng: 112.5000},
+            {name: "Mojokerto (Kota), Jatim", lat: -7.4725, lng: 112.4340},
+            {name: "Morowali", lat: -2.2000, lng: 121.8333},
+            {name: "Muara Enim, Sumsel", lat: -3.6500, lng: 103.7667},
+            {name: "Muaro Jambi", lat: -1.5833, lng: 103.6667},
+            {name: "Muko Muko", lat: -2.5833, lng: 101.1167},
+            {name: "Muna (Raha)", lat: -4.8333, lng: 122.7167},
+            {name: "Murung Raya", lat: -0.0167, lng: 114.2667},
+            {name: "Musi Banyuasin (Sekayu)", lat: -2.9000, lng: 103.8500},
+            {name: "Musi Rawas", lat: -3.0833, lng: 103.2000},
+            {name: "Nabire, Papua", lat: -3.3667, lng: 135.4833},
+            {name: "Nagan Raya (Suka Makmue)", lat: 4.1667, lng: 96.3167},
+            {name: "Nagekeo", lat: -8.7000, lng: 121.2167},
+            {name: "Natuna (Ranai)", lat: 3.9500, lng: 108.3833},
+            {name: "Nduga", lat: -4.4167, lng: 138.2333},
+            {name: "Ngada (Bajawa)", lat: -8.8000, lng: 120.9667},
+            {name: "Nganjuk, Jatim", lat: -7.6041, lng: 111.9009},
+            {name: "Ngawi, Jatim", lat: -7.4038, lng: 111.4447},
+            {name: "Nias (Gunung Sitoli)", lat: 1.2833, lng: 97.6167},
+            {name: "Nias Selatan (Teluk Dalam)", lat: 0.5500, lng: 97.8167},
+            {name: "Nunukan, Kaltara", lat: 4.1333, lng: 117.6500},
+            {name: "Ogan Ilir (Indralaya)", lat: -3.2333, lng: 104.6500},
+            {name: "Ogan Komering Ilir (Kayu Agung)", lat: -3.3833, lng: 104.8167},
+            {name: "Ogan Komering Ulu (Baturaja)", lat: -4.1278, lng: 104.1683},
+            {name: "Ogan Komering Ulu Selatan", lat: -4.6500, lng: 104.0000},
+            {name: "Ogan Komering Ulu Timur", lat: -3.8667, lng: 104.7500},
+            {name: "Pacitan, Jatim", lat: -8.2000, lng: 111.1000},
             {name: "Padang, Sumbar", lat: -0.9471, lng: 100.4172},
+            {name: "Padang Lawas (Sibuhuan)", lat: 1.0500, lng: 99.7167},
+            {name: "Padang Lawas Utara", lat: 1.4667, lng: 99.6667},
+            {name: "Padang Panjang, Sumbar", lat: -0.4667, lng: 100.4000},
+            {name: "Padang Pariaman", lat: -0.6333, lng: 100.1167},
+            {name: "Padang Sidempuan, Sumut", lat: 1.3737, lng: 99.2674},
+            {name: "Pagar Alam, Sumsel", lat: -4.0157, lng: 103.2669},
+            {name: "Pakpak Bharat", lat: 2.5667, lng: 98.2833},
             {name: "Palangkaraya, Kalteng", lat: -2.2106, lng: 113.9144},
             {name: "Palembang, Sumsel", lat: -2.9761, lng: 104.7754},
+            {name: "Palopo, Sulsel", lat: -2.9945, lng: 120.1970},
             {name: "Palu, Sulteng", lat: -0.9010, lng: 119.8398},
+            {name: "Pamekasan, Jatim", lat: -7.1643, lng: 113.4866},
+            {name: "Pandeglang, Banten", lat: -6.3084, lng: 106.1067},
+            {name: "Pangandaran, Jabar", lat: -7.7000, lng: 108.6500},
+            {name: "Pangkajene Kepulauan", lat: -4.8333, lng: 119.5500},
+            {name: "Pangkal Pinang, Babel", lat: -2.1324, lng: 106.1093},
+            {name: "Paniai (Enarotali)", lat: -3.9000, lng: 136.3500},
+            {name: "Parepare, Sulsel", lat: -4.0131, lng: 119.6243},
+            {name: "Pariaman, Sumbar", lat: -0.6194, lng: 100.1217},
+            {name: "Parigi Moutong", lat: 0.9333, lng: 120.1833},
+            {name: "Pasaman (Lubuk Sikaping)", lat: 0.1500, lng: 100.1667},
+            {name: "Pasaman Barat", lat: 0.1833, lng: 99.8167},
+            {name: "Paser (Tanah Grogot)", lat: -1.8500, lng: 116.1667},
+            {name: "Pasuruan (Kab), Jatim", lat: -7.6667, lng: 112.8333},
+            {name: "Pasuruan (Kota), Jatim", lat: -7.6453, lng: 112.9075},
+            {name: "Pati, Jateng", lat: -6.7550, lng: 111.0380},
+            {name: "Payakumbuh, Sumbar", lat: -0.2241, lng: 100.6323},
+            {name: "Pegunungan Bintang", lat: -4.5000, lng: 140.5000},
+            {name: "Pekalongan (Kab), Jateng", lat: -7.0333, lng: 109.6167},
+            {name: "Pekalongan (Kota), Jateng", lat: -6.8898, lng: 109.6746},
             {name: "Pekanbaru, Riau", lat: 0.5071, lng: 101.4478},
+            {name: "Pelalawan (Pangkalan Kerinci)", lat: 0.2667, lng: 101.8667},
+            {name: "Pemalang, Jateng", lat: -6.8920, lng: 109.3813},
+            {name: "Pematang Siantar, Sumut", lat: 2.9649, lng: 99.0621},
+            {name: "Penajam Paser Utara", lat: -1.2500, lng: 116.6667},
+            {name: "Pesawaran, Lampung", lat: -5.4167, lng: 105.1000},
+            {name: "Pesisir Barat (Krui)", lat: -5.1833, lng: 103.9333},
+            {name: "Pesisir Selatan (Painan)", lat: -1.3500, lng: 100.5667},
+            {name: "Pidie (Sigli)", lat: 5.3833, lng: 95.9500},
+            {name: "Pidie Jaya", lat: 5.1500, lng: 96.2167},
+            {name: "Pinrang, Sulsel", lat: -3.7833, lng: 119.6500},
+            {name: "Pohuwato", lat: 0.5000, lng: 121.8333},
+            {name: "Polewali Mandar", lat: -3.4167, lng: 119.3333},
+            {name: "Ponorogo, Jatim", lat: -7.8675, lng: 111.4627},
             {name: "Pontianak, Kalbar", lat: -0.0263, lng: 109.3425},
+            {name: "Poso, Sulteng", lat: -1.3957, lng: 120.7524},
+            {name: "Prabumulih, Sumsel", lat: -3.4294, lng: 104.2295},
+            {name: "Pringsewu, Lampung", lat: -5.3500, lng: 104.9667},
+            {name: "Probolinggo (Kab), Jatim", lat: -7.8167, lng: 113.3167},
+            {name: "Probolinggo (Kota), Jatim", lat: -7.7543, lng: 113.2159},
+            {name: "Pulang Pisau", lat: -2.7000, lng: 114.1667},
+            {name: "Pulau Morotai", lat: 2.3333, lng: 128.5000},
+            {name: "Puncak Jaya", lat: -3.8333, lng: 137.8333},
+            {name: "Purbalingga, Jateng", lat: -7.3916, lng: 109.3622},
+            {name: "Purwakarta, Jabar", lat: -6.5561, lng: 107.4421},
+            {name: "Purworejo, Jateng", lat: -7.7167, lng: 110.0000},
+            {name: "Raja Ampat (Waisai)", lat: -0.4333, lng: 130.8167},
+            {name: "Rejang Lebong (Curup)", lat: -3.4667, lng: 102.5333},
+            {name: "Rembang, Jateng", lat: -6.7167, lng: 111.3333},
+            {name: "Rokan Hilir (Bagansiapiapi)", lat: 2.1500, lng: 100.8167},
+            {name: "Rokan Hulu (Pasir Pengaraian)", lat: 0.8833, lng: 100.3167},
+            {name: "Rote Ndao", lat: -10.7333, lng: 123.1167},
+            {name: "Sabang, Aceh", lat: 5.8950, lng: 95.3164},
+            {name: "Sabu Raijua", lat: -10.5000, lng: 121.7000},
+            {name: "Salatiga, Jateng", lat: -7.3305, lng: 110.5084},
             {name: "Samarinda, Kaltim", lat: -0.4949, lng: 117.1436},
-            {name: "Semarang, Jateng", lat: -6.9667, lng: 110.4167},
-            {name: "Serang, Banten", lat: -6.1104, lng: 106.1639},
+            {name: "Sambas, Kalbar", lat: 1.3333, lng: 109.2833},
+            {name: "Samosir (Pangururan)", lat: 2.6167, lng: 98.7000},
+            {name: "Sampang, Jatim", lat: -7.1833, lng: 113.2500},
+            {name: "Sanggau, Kalbar", lat: 0.1167, lng: 110.5833},
+            {name: "Sarmi", lat: -2.2500, lng: 138.7500},
+            {name: "Sarolangun", lat: -2.3000, lng: 102.7000},
+            {name: "Sawahlunto, Sumbar", lat: -0.6833, lng: 100.7833},
+            {name: "Sekadau", lat: 0.0333, lng: 110.9500},
+            {name: "Seluma", lat: -4.0167, lng: 102.5000},
+            {name: "Semarang (Kab/Ungaran)", lat: -7.1333, lng: 110.4000},
+            {name: "Semarang (Kota), Jateng", lat: -6.9667, lng: 110.4167},
+            {name: "Seram Bagian Barat", lat: -3.1167, lng: 128.3167},
+            {name: "Seram Bagian Timur", lat: -3.5000, lng: 130.5000},
+            {name: "Serang (Kab)", lat: -6.1167, lng: 106.1500},
+            {name: "Serang (Kota), Banten", lat: -6.1104, lng: 106.1639},
+            {name: "Serdang Bedagai", lat: 3.5000, lng: 99.1167},
+            {name: "Seruyan", lat: -2.8333, lng: 112.4167},
+            {name: "Siak (Siak Sri Indrapura)", lat: 0.8000, lng: 102.0167},
+            {name: "Sibolga, Sumut", lat: 1.7397, lng: 98.7797},
+            {name: "Sidenreng Rappang (Pangkajene)", lat: -3.9167, lng: 119.9333},
+            {name: "Sidoarjo, Jatim", lat: -7.4478, lng: 112.7183},
+            {name: "Sigi, Sulteng", lat: -1.1000, lng: 119.9667},
+            {name: "Sijunjung", lat: -0.6833, lng: 100.9500},
+            {name: "Sikka (Maumere)", lat: -8.6333, lng: 122.2167},
+            {name: "Simalungun (Raya)", lat: 2.9667, lng: 99.0000},
+            {name: "Simeulue (Sinabang)", lat: 2.6167, lng: 96.0833},
+            {name: "Singkawang, Kalbar", lat: 0.9131, lng: 108.9877},
+            {name: "Sinjai, Sulsel", lat: -5.1333, lng: 120.2500},
+            {name: "Sintang, Kalbar", lat: 0.0833, lng: 111.5000},
+            {name: "Situbondo, Jatim", lat: -7.7067, lng: 114.0044},
+            {name: "Sleman, DIY", lat: -7.7167, lng: 110.3500},
+            {name: "Solok (Kab/Arosuka)", lat: -0.9667, lng: 100.6167},
+            {name: "Solok (Kota), Sumbar", lat: -0.8000, lng: 100.6500},
+            {name: "Solok Selatan", lat: -1.4167, lng: 101.2000},
+            {name: "Solo (Surakarta), Jateng", lat: -7.5755, lng: 110.8243},
+            {name: "Soppeng (Watansoppeng)", lat: -4.3500, lng: 119.8833},
+            {name: "Sorong (Kota), Papua Brt", lat: -0.8767, lng: 131.2558},
+            {name: "Sragen, Jateng", lat: -7.4272, lng: 111.0223},
+            {name: "Subang, Jabar", lat: -6.5716, lng: 107.7587},
+            {name: "Subulussalam, Aceh", lat: 2.6333, lng: 98.0000},
+            {name: "Sukabumi (Kab/Pelabuhan Ratu)", lat: -6.9833, lng: 106.5500},
+            {name: "Sukabumi (Kota), Jabar", lat: -6.9277, lng: 106.9300},
+            {name: "Sukamara", lat: -2.6333, lng: 111.2333},
+            {name: "Sukoharjo, Jateng", lat: -7.6833, lng: 110.8333},
+            {name: "Sumba Barat (Waikabubak)", lat: -9.6333, lng: 119.4167},
+            {name: "Sumba Barat Daya", lat: -9.5667, lng: 119.1000},
+            {name: "Sumba Tengah", lat: -9.6167, lng: 119.6333},
+            {name: "Sumba Timur (Waingapu)", lat: -9.6500, lng: 120.2667},
+            {name: "Sumbawa Besar, NTB", lat: -8.5036, lng: 117.4299},
+            {name: "Sumbawa Barat (Taliwang)", lat: -8.7500, lng: 116.8500},
+            {name: "Sumedang, Jabar", lat: -6.8586, lng: 107.9192},
+            {name: "Sumenep, Jatim", lat: -7.0167, lng: 113.8667},
+            {name: "Sungai Penuh, Jambi", lat: -2.0667, lng: 101.3833},
+            {name: "Supiori", lat: -0.7333, lng: 135.6000},
             {name: "Surabaya, Jatim", lat: -7.2575, lng: 112.7521},
-            {name: "Solo (Surakarta)", lat: -7.5755, lng: 110.8243},
-            {name: "Tangerang, Banten", lat: -6.1732, lng: 106.6300},
+            {name: "Tabanan, Bali", lat: -8.5528, lng: 115.1270},
+            {name: "Tabalong (Tanjung)", lat: -2.1833, lng: 115.3833},
+            {name: "Takalar, Sulsel", lat: -5.4167, lng: 119.4500},
+            {name: "Tambrauw", lat: -0.6000, lng: 132.5000},
+            {name: "Tana Tidung", lat: 3.5500, lng: 117.2500},
+            {name: "Tana Toraja (Makale)", lat: -3.1000, lng: 119.8500},
+            {name: "Tanah Bumbu (Batulicin)", lat: -3.4500, lng: 116.0500},
+            {name: "Tanah Datar (Batusangkar)", lat: -0.4667, lng: 100.5833},
+            {name: "Tanah Laut (Pelaihari)", lat: -3.8000, lng: 114.7667},
+            {name: "Tangerang (Kab/Tigaraksa)", lat: -6.2500, lng: 106.4667},
+            {name: "Tangerang (Kota), Banten", lat: -6.1732, lng: 106.6300},
+            {name: "Tangerang Selatan, Banten", lat: -6.2886, lng: 106.7179},
+            {name: "Tanggamus (Kota Agung)", lat: -5.5000, lng: 104.6167},
+            {name: "Tanjung Balai, Sumut", lat: 2.9652, lng: 99.8003},
+            {name: "Tanjung Jabung Barat", lat: -0.9667, lng: 103.1667},
+            {name: "Tanjung Jabung Timur", lat: -1.1333, lng: 103.6167},
             {name: "Tanjung Pinang, Kepri", lat: 0.9167, lng: 104.4500},
-            {name: "Tasikmalaya, Jabar", lat: -7.3274, lng: 108.2207},
+            {name: "Tanjung Selor, Kaltara", lat: 2.8422, lng: 117.3621},
+            {name: "Tapanuli Selatan", lat: 1.5833, lng: 99.2500},
+            {name: "Tapanuli Tengah (Pandan)", lat: 1.6833, lng: 98.8333},
+            {name: "Tapanuli Utara (Tarutung)", lat: 2.0167, lng: 98.9667},
+            {name: "Tapin (Rantau)", lat: -2.9167, lng: 115.1667},
+            {name: "Tarakan, Kaltara", lat: 3.3274, lng: 117.5746},
+            {name: "Tasikmalaya (Kab/Singaparna)", lat: -7.3500, lng: 108.1167},
+            {name: "Tasikmalaya (Kota), Jabar", lat: -7.3274, lng: 108.2207},
+            {name: "Tebing Tinggi, Sumut", lat: 3.3284, lng: 99.1625},
+            {name: "Tebo (Muara Tebo)", lat: -1.4833, lng: 102.3167},
+            {name: "Tegal (Kab/Slawi)", lat: -6.9833, lng: 109.1333},
+            {name: "Tegal (Kota), Jateng", lat: -6.8694, lng: 109.1402},
+            {name: "Teluk Bintuni", lat: -2.1167, lng: 133.5333},
+            {name: "Teluk Wondama", lat: -2.7000, lng: 134.5000},
+            {name: "Temanggung, Jateng", lat: -7.3167, lng: 110.1667},
+            {name: "Ternate, Malut", lat: 0.7893, lng: 127.3630},
+            {name: "Tidore Kepulauan", lat: 0.6833, lng: 127.4000},
+            {name: "Timor Tengah Selatan (Soe)", lat: -9.8667, lng: 124.2833},
+            {name: "Timor Tengah Utara (Kefamenanu)", lat: -9.4500, lng: 124.4833},
+            {name: "Toba Samosir (Balige)", lat: 2.3333, lng: 99.0667},
+            {name: "Tojo Una-Una", lat: -0.8667, lng: 121.6333},
+            {name: "Toli-Toli", lat: 1.0333, lng: 120.8167},
+            {name: "Tolikara", lat: -3.5333, lng: 138.6000},
+            {name: "Tomohon, Sulut", lat: 1.3333, lng: 124.8333},
+            {name: "Toraja Utara (Rantepao)", lat: -2.9667, lng: 119.9000},
             {name: "Trenggalek, Jatim", lat: -8.0500, lng: 111.7167},
+            {name: "Tuban, Jatim", lat: -6.8976, lng: 112.0638},
+            {name: "Tulang Bawang (Menggala)", lat: -4.4667, lng: 105.2500},
+            {name: "Tulang Bawang Barat", lat: -4.4333, lng: 105.0500},
+            {name: "Tulungagung, Jatim", lat: -8.0658, lng: 111.9016},
+            {name: "Wajo (Sengkang)", lat: -4.1333, lng: 120.0333},
+            {name: "Wakatobi (Wangi-Wangi)", lat: -5.3167, lng: 123.5833},
+            {name: "Waropen", lat: -2.7167, lng: 136.6333},
+            {name: "Wamena (Jayawijaya)", lat: -4.0970, lng: 138.9388},
+            {name: "Way Kanan (Blambangan Umpu)", lat: -4.6667, lng: 104.5333},
+            {name: "Wonogiri, Jateng", lat: -7.8177, lng: 110.9262},
+            {name: "Wonosobo, Jateng", lat: -7.3632, lng: 109.8998},
+            {name: "Yahukimo", lat: -4.5000, lng: 139.5000},
+            {name: "Yalimo", lat: -3.8000, lng: 139.4000},
+            {name: "Yogyakarta (Kota), DIY", lat: -7.7956, lng: 110.3695},
         ];
 
         // --- QUOTES ---
@@ -444,7 +826,7 @@
         };
 
         // Default Location Logic
-        let currentLoc = cities.find(c => c.name.includes("Trenggalek")) || cities.find(c => c.name.includes("Jakarta")) || cities[0];
+        let currentLoc = cities.find(c => c.name.includes("Trenggalek")) || cities.find(c => c.name.includes("Jakarta Pusat")) || cities[0];
         let prayerTimes = null;
 
         function init() {
